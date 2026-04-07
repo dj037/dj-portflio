@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oopsie Adults - 初级大人产品洞察报告</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // 配色方案精简为核心三色，保持专业与简约
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: '#5B9BD5',   // 主色调：专业、理性的柔和蓝
+                        brandYellow: '#FFD966', // 辅助色：活力、警示的暖黄
+                        darkText: '#2D3748',    // 文本色：深灰，用于正文
+                        mutedText: '#718096',   // 弱化文本色
+                        lightBg: '#F7FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['"PingFang SC"', '"Microsoft YaHei"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
+                        'floating': '0 10px 30px -10px rgba(91, 155, 213, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            scroll-behavior: smooth;
+            background-color: #F7FAFC;
+        }
+        .minimal-card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .minimal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08);
+        }
+        .chart-container {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+        /* 动态背景修饰，调整为单一蓝色系 */
+        .bg-blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .avatar-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            object-position: top center; /* 聚焦到人物头部区域 */
+            border-radius: 50%;
+            border: 2px solid #F7FAFC;
+        }
+    </style>
+</head>
+<body class="text-darkText antialiased selection:bg-brandYellow selection:text-darkText">
+
+    <!-- 导航栏 & 专属Logo -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-xl border-b border-gray-100 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- Logo：保持原有的极简社畜公文包设计，配色已统一 -->
+                <svg width="40" height="40" viewBox="0 0 100 100" class="drop-shadow-sm">
+                    <rect x="15" y="35" width="70" height="50" rx="16" fill="#FFD966" />
+                    <path d="M 35 35 L 35 20 C 35 12 65 12 65 20 L 65 35" stroke="#FFD966" stroke-width="8" stroke-linecap="round" fill="none" />
+                    <path d="M 30 50 L 40 60 L 30 70" stroke="#2D3748" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                    <path d="M 70 50 L 60 60 L 70 70" stroke="#2D3748" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                    <path d="M 75 25 Q 85 35 75 45 Q 65 35 75 25" fill="#5B9BD5" />
+                    <g transform="rotate(-15 25 75)">
+                        <rect x="15" y="70" width="20" height="8" rx="4" fill="#2D3748" opacity="0.2" />
+                    </g>
+                </svg>
+                <h1 class="text-xl font-bold tracking-tight">Oopsie<span class="text-brandBlue">Adults</span></h1>
+            </div>
+            <div class="space-x-8 text-sm font-medium text-mutedText hidden md:flex">
+                <a href="#concept" class="hover:text-brandBlue transition-colors">核心洞察</a>
+                <a href="#research" class="hover:text-brandBlue transition-colors">数据分析</a>
+                <a href="#personas" class="hover:text-brandBlue transition-colors">用户画像</a>
+                <a href="#functions" class="hover:text-brandBlue transition-colors">功能规划</a>
+            </div>
+        </div>
+    </nav>
+
+    <a href="DJ.html#project-oopsie" class="fixed left-4 top-24 md:left-6 md:top-24 z-50 inline-flex items-center gap-2 bg-white/90 backdrop-blur-xl border border-brandBlue/20 text-brandBlue px-4 py-2 rounded-full text-sm font-bold shadow-soft hover:bg-white transition-colors">
+        <span>←</span>
+        <span>返回作品集</span>
+    </a>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-28 pb-20 space-y-24">
+
+        <!-- 1. 核心洞察 & 视觉展示 -->
+        <section id="concept" class="relative max-w-5xl mx-auto pt-10">
+            <div class="bg-blob w-96 h-96 bg-brandBlue top-0 left-0"></div>
+            <div class="bg-blob w-96 h-96 bg-brandYellow bottom-0 right-0"></div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+                <!-- 左侧：替换为新的社畜小人图像 -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-brandBlue rounded-3xl transform rotate-3 scale-105 opacity-10 transition-transform group-hover:rotate-6"></div>
+                    <img src="pic/Gemini_Generated_Image_zgeat0zgeat0zgea.png" alt="职场压力下的社畜形象" class="relative z-10 w-full h-auto object-cover rounded-3xl shadow-soft bg-white p-4 border border-gray-50" />
+                    
+                    <!-- 悬浮标签，语言更专业 -->
+                    <div class="absolute -top-4 -left-4 bg-white px-4 py-2 rounded-full shadow-floating font-bold text-sm text-brandBlue flex items-center gap-2 z-20">
+                        <span>Start：兵荒马乱的早晨</span>
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 bg-white px-4 py-2 rounded-full shadow-floating font-bold text-sm text-brandYellow flex items-center gap-2 z-20">
+                        <span>End：脑容量已欠费</span>
+                    </div>
+                </div>
+
+                <!-- 右侧：初级大人概念专业解读 -->
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brandBlue/10 text-brandBlue font-bold text-sm">
+                        ✨ 核心用户洞察定义
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-darkText leading-tight">
+                       生理已成年，<br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brandBlue to-brandYellow">忙乱中执行力却掉线。</span>
+                    </h1>
+                    
+                    <div class="space-y-4 text-mutedText text-lg leading-relaxed">
+                        <p>
+                            在多重社会身份与绩效指标的压力下，个体常处于高负荷运转状态，如同图示中忙乱的社畜小人。
+                        </p>
+                        <p>
+                            <strong>“初级大人” (Oopsie Adults)</strong> 现象：指个体在职场人、学生、独立生活者等多重身份频繁切换时，导致的<strong>“认知负荷过载”</strong>状态。这并非个体主观意愿的缺失，而是客观压力下的必然结果。
+                        </p>
+                        <p class="font-medium text-darkText bg-brandBlue/10 p-4 rounded-xl border-l-4 border-brandBlue">
+                            物品遗漏、时间预估偏差等难以预期的小失误（Oopsie），持续消耗着个体的精力与情绪资源。Oopsie Adults就是<strong>“接住手忙脚乱的生活安全网”</strong>。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 用户调研数据分析 -->
+        <section id="research" class="space-y-12 pt-10">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="text-3xl font-extrabold text-darkText mb-4">晨间出行场景的痛点分析</h2>
+                <p class="text-mutedText">基于 71 份有效问卷及 8 份深度访谈的定量与定性数据统计</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- 痛点1 -->
+                <div class="minimal-card p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-brandYellow/20 flex items-center justify-center text-xl">🤯</div>
+                        <h3 class="font-bold text-xl text-darkText">晨间准备流程失控现象</h3>
+                    </div>
+                    <div class="chart-container mb-6">
+                        <canvas id="chartPain1"></canvas>
+                    </div>
+                    <p class="text-sm text-mutedText bg-gray-50 p-4 rounded-xl">
+                        <strong>数据结论：</strong> 53.5%的受访者临近出门时仍处于无序忙乱状态；41%的人因时间预估不准确而产生反复的焦虑情绪。
+                    </p>
+                </div>
+
+                <!-- 痛点2 -->
+                <div class="minimal-card p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-brandBlue/20 flex items-center justify-center text-xl">🎒</div>
+                        <h3 class="font-bold text-xl text-darkText">高频遗忘物品类别分析</h3>
+                    </div>
+                    <div class="chart-container mb-6">
+                        <canvas id="chartPain2"></canvas>
+                    </div>
+                    <p class="text-sm text-mutedText bg-gray-50 p-4 rounded-xl">
+                        <strong>数据结论：</strong> “特定场合必备品”（如转接头、文件）遗忘率高达 45%。相较于肌肉记忆类物品，动态需求构成了主要的记忆盲区。
+                    </p>
+                </div>
+
+                <!-- 现状分析 -->
+                <div class="minimal-card p-8 lg:col-span-2 flex flex-col lg:flex-row gap-10 items-center">
+                    <div class="flex-1 w-full">
+                        <h3 class="font-bold text-xl text-darkText mb-2">现有依赖意志力的防范机制局限性</h3>
+                        <p class="text-sm text-mutedText mb-6">调研显示，用户普遍采用“前一晚准备”或“多重闹钟”策略，但实际效果存疑。</p>
+                        <div class="chart-container h-56 w-full max-w-sm mx-auto lg:max-w-none">
+                            <canvas id="chartCurrent"></canvas>
+                        </div>
+                    </div>
+                    <div class="flex-1 space-y-4 w-full">
+                        <div class="bg-brandBlue/5 p-5 rounded-2xl border border-brandBlue/10">
+                            <h4 class="font-bold text-brandBlue text-lg mb-2">59.15% 的样本反馈：</h4>
+                            <p class="text-sm text-darkText">现有防范方法仍会“偶尔出现疏漏”。在疲劳或突发状况下，依赖个人意志力的防线极易失效。</p>
+                        </div>
+                        <div class="bg-brandYellow/10 p-5 rounded-2xl border border-brandYellow/20">
+                            <h4 class="font-bold text-brandYellow text-lg mb-2">用户诉求转变：</h4>
+                            <p class="text-sm text-darkText">急需从被动式的提醒工具，转向具备<strong>“主动防御与拦截”</strong>能力的系统化解决方案。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 社畜画像与 HMW 策略推导 -->
+        <section id="personas" class="space-y-12 pt-10">
+            <div class="text-center max-w-2xl mx-auto">
+                <h2 class="text-3xl font-extrabold text-darkText mb-4">典型用户画像与 HMW 策略推导</h2>
+                <p class="text-mutedText">基于痛点分析，推导旨在“消除负面体验 (Remove the bad)”的产品策略</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- 画像 1 -->
+                <div class="minimal-card overflow-hidden flex flex-col">
+                    <div class="h-2 w-full bg-brandYellow"></div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-4 mb-6">
+                            <!-- 使用提供的图像作为头像，并通过CSS聚焦头部 -->
+                            <img src="pic/r1.png" alt="Sookie Avatar" class="avatar-img shadow-sm bg-yellow-100">
+                            <div>
+                                <h3 class="font-bold text-lg">Sookie (21岁)</h3>
+                                <p class="text-xs font-bold text-yellow-700 bg-brandYellow/30 px-2 py-1 rounded mt-1">在校生 / 实习生</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 text-sm flex-1 text-mutedText">
+                            <p><strong>核心痛点场景：</strong> 遗漏汇报所需的关键配件（如转接头），导致职业形象受损。</p>
+                            <p class="text-darkText font-medium bg-gray-50 p-3 rounded-lg"><strong>POV：</strong> 需要系统根据日程事项，主动推导并提示关联物品。</p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-gray-100">
+                            <h4 class="font-bold text-brandBlue mb-2 flex items-center gap-2">📦 策略：一键场景克隆</h4>
+                            <p class="text-sm text-mutedText">基于日程关键词自动生成关联物品清单，并纳入强制核对流程，从根源杜绝遗忘可能。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 画像 2 -->
+                <div class="minimal-card overflow-hidden flex flex-col">
+                    <div class="h-2 w-full bg-brandBlue"></div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-4 mb-6">
+                             <!-- 使用提供的图像作为头像 -->
+                            <img src="pic/r2.png" alt="Lily Avatar" class="avatar-img shadow-sm bg-blue-100" style="object-position: center;">
+                            <div>
+                                <h3 class="font-bold text-lg">Lily (28岁)</h3>
+                                <p class="text-xs font-bold text-blue-700 bg-brandBlue/20 px-2 py-1 rounded mt-1">策展人 / 高频信息处理者</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 text-sm flex-1 text-mutedText">
+                            <p><strong>核心痛点场景：</strong> 频繁在多个应用间切换以复制粘贴地址与时间信息，造成显著的精神损耗。</p>
+                            <p class="text-darkText font-medium bg-gray-50 p-3 rounded-lg"><strong>POV：</strong> 需要一个信息中枢，实现跨平台信息的自动聚合。</p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-gray-100">
+                            <h4 class="font-bold text-brandBlue mb-2 flex items-center gap-2">🤖 策略：AI 全局抓取</h4>
+                            <p class="text-sm text-mutedText">打通日历与通讯软件，智能提取关键信息并生成可视化行程，消除人工跨平台操作。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 画像 3 -->
+                <div class="minimal-card overflow-hidden flex flex-col">
+                    <div class="h-2 w-full bg-darkText/30"></div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-4 mb-6">
+                             <!-- 使用提供的图像作为头像 -->
+                            <img src="pic/r3.png" alt="Joy Avatar" class="avatar-img shadow-sm bg-gray-200" style="object-position: bottom center;">
+                            <div>
+                                <h3 class="font-bold text-lg">Joy (30岁)</h3>
+                                <p class="text-xs font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded mt-1">中层主管 / 时间敏感型</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 text-sm flex-1 text-mutedText">
+                            <p><strong>核心痛点场景：</strong> 导航软件的时间预估偏差引发严重的时间焦虑，被迫采取过度防御性的提前出行。</p>
+                            <p class="text-darkText font-medium bg-gray-50 p-3 rounded-lg"><strong>POV：</strong> 需要透明、具备参考价值的时间预测数据来重建信任。</p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-gray-100">
+                            <h4 class="font-bold text-brandBlue mb-2 flex items-center gap-2">⏱️ 策略：ETA 置信区间</h4>
+                            <p class="text-sm text-mutedText">摒弃单一的绝对时间预测，提供基于概率的到达时间区间，以数据透明度缓解用户焦虑。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 核心功能规划 -->
+        <section id="functions" class="pt-10">
+            <div class="minimal-card bg-sky-100 text-darkText p-10 md:p-16 overflow-hidden relative">
+                <!-- 装饰性光晕，统一使用蓝色调 -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brandBlue rounded-full filter blur-[120px] opacity-40"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-brandBlue rounded-full filter blur-[120px] opacity-20"></div>
+
+                <div class="text-center relative z-10 mb-14">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">三大核心功能模块规划</h2>
+                    <p class="text-mutedText">目标：通过系统化辅助，确保每日待办事项高效达成。</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 relative z-10">
+                    <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-brandBlue/20 hover:bg-white/80 transition-colors">
+                        <div class="text-brandYellow font-black text-5xl mb-3">59%</div>
+                        <div class="text-xs font-bold bg-brandBlue/15 inline-block px-3 py-1 rounded-full text-darkText mb-5">需求优先级 NO.1</div>
+                        <h3 class="text-xl font-bold mb-3">智慧时间规划</h3>
+                        <p class="text-sm text-mutedText leading-relaxed">取代传统固定闹钟。结合实时路况与待办事项，动态反推最佳的起床与出发时间节点。</p>
+                    </div>
+
+                    <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-brandBlue/20 hover:bg-white/80 transition-colors">
+                        <div class="text-brandBlue font-black text-5xl mb-3">45%</div>
+                        <div class="text-xs font-bold bg-brandBlue/15 inline-block px-3 py-1 rounded-full text-darkText mb-5">需求优先级 NO.2</div>
+                        <h3 class="text-xl font-bold mb-3">强制出门核对</h3>
+                        <p class="text-sm text-mutedText leading-relaxed">打通线上线下物理连接。出门前须通过NFC标签触碰完成关键物品的强制性物理确认。</p>
+                    </div>
+
+                    <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-8 border border-brandBlue/20 hover:bg-white/80 transition-colors">
+                        <div class="text-darkText/70 font-black text-5xl mb-3">36%</div>
+                        <div class="text-xs font-bold bg-brandBlue/15 inline-block px-3 py-1 rounded-full text-darkText mb-5">需求优先级 NO.3</div>
+                        <h3 class="text-xl font-bold mb-3">沉浸式流程引导</h3>
+                        <p class="text-sm text-mutedText leading-relaxed">提供包含晨间洗漱在内的全流程语音/视觉引导，降低认知负荷，实现晨间行为的自动化辅助。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-mutedText text-sm py-10">
+            <p>Created by CRTL V Team.</p>
+            <p class="mt-2">Product Insight Report for Oopsie Adults Project.</p>
+        </footer>
+    </main>
+
+    <!-- Chart.js 实例化逻辑 -->
+    <script>
+        // 使用精简后的三色配色
+        const brandColors = {
+            blue: '#5B9BD5',
+            yellow: '#FFD966',
+            dark: '#2D3748',
+            muted: '#CBD5E1'
+        };
+
+        Chart.defaults.font.family = '"PingFang SC", "Microsoft YaHei", -apple-system, sans-serif';
+        Chart.defaults.color = '#718096'; 
+        Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(45, 55, 72, 0.9)';
+        Chart.defaults.plugins.tooltip.padding = 12;
+        Chart.defaults.plugins.tooltip.cornerRadius = 8;
+        
+        const gridOptions = {
+            color: '#EDF2F7',
+            drawBorder: false,
+        };
+
+        // 图表1：早晨痛点
+        new Chart(document.getElementById('chartPain1'), {
+            type: 'bar',
+            data: {
+                labels: ['未准备好', '起晚压缩', '反复担忧', '交通不定', '遗忘物品'],
+                datasets: [{
+                    label: '发生率 (%)',
+                    data: [53.52, 40.85, 40.85, 32.39, 30.99],
+                    backgroundColor: brandColors.yellow, // 使用活力黄作为警示/痛点色
+                    borderRadius: 6,
+                    barPercentage: 0.5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { grid: gridOptions, beginAtZero: true, max: 60, border: {display: false} }
+                }
+            }
+        });
+
+        // 图表2：遗忘物品
+        new Chart(document.getElementById('chartPain2'), {
+            type: 'bar',
+            data: {
+                labels: ['特定场合物品', '电子设备', '钥匙', '证件卡片'],
+                datasets: [{
+                    label: '选择率 (%)',
+                    data: [44.93, 31.88, 30.43, 27.54],
+                    backgroundColor: brandColors.blue, // 使用专业蓝
+                    borderRadius: 6,
+                    barPercentage: 0.5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: { grid: gridOptions, beginAtZero: true, max: 50, border: {display: false} }
+                }
+            }
+        });
+
+        // 图表3：现有方法有效性
+        new Chart(document.getElementById('chartCurrent'), {
+            type: 'doughnut',
+            data: {
+                labels: ['偶尔疏漏', '非常有效', '效果一般', '基本无效'],
+                datasets: [{
+                    data: [59.15, 22.54, 15.49, 2.82],
+                    backgroundColor: [brandColors.blue, brandColors.yellow, brandColors.muted, '#E2E8F0'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'right', 
+                        labels: { boxWidth: 12, usePointStyle: true, padding: 15 }
+                    }
+                },
+                cutout: '75%'
+            }
+        });
+    </script>
+</body>
+</html>

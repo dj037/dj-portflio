@@ -1,0 +1,63 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+html {
+  font-size: 22px;
+  line-height: 1.5;
+  color: white;
+}
+
+body {
+  overflow-x: hidden;
+  background: rgb(252, 250, 242);
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+#arrow-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#arrow {
+  width: 200px;
+  height: 200px;
+  background: url("../images/arrow.png") no-repeat center center;
+  background-size: contain;
+  animation: bounce 1s infinite;
+}
+
+#arrow-text {
+  font-size: 25px;
+  color: white;
+  animation: bounce 1s infinite;
+  margin-top: -60px;
+}

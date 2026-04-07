@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* 自定义样式 */
+.audio-player {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 6px;
+}
+
+.audio-player-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url('audio-icon.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 10px;
+}
+
+.audio-player-progress {
+  height: 4px;
+  width: 100%;
+  background-color: #ddd;
+  margin-top: 10px;
+}
+
+.audio-player-progress-bar {
+  height: 100%;
+  width: 40%;
+  background-color: #ff6f00;
+}
+
+@media screen and (max-width: 600px) {
+  .audio-player {
+    flex-direction: column;
+  }
+  .audio-player-progress {
+    margin-top: 5px;
+  }
+}
+</style>
+</head>
+<body>
+<!-- 响应式网页 -->
+<div class="audio-player">
+  <div class="audio-player-icon"></div>
+  <div class="audio-player-progress">
+    <div class="audio-player-progress-bar"></div>
+  </div>
+</div>
+</body>
+</html>

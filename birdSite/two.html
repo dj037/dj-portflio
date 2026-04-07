@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/page.css">
+    <link rel="stylesheet" href="./css/menu.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <title>二、北京城市化与鸟类保护矛盾</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <style>
+        body {
+            padding-bottom: 220px;
+            color: #517938;
+            background: #fff !important;
+        }
+
+        @font-face {
+            font-family: de;
+            src: url("./font/FZYANZQKSJF.TTF");
+        }
+
+      
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url(./images/two.jpg);
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .logo h2 {
+            font-size: 5rem;
+            color: white;
+            text-align: center;
+            font-family: de;
+        }
+
+        .container {
+            width: 80%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            font-size: 24px;
+        }
+
+
+
+        .container img {
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .container img:hover {
+            transform: scale(1.03);
+        }
+
+        .container p{
+            color: #043e25;
+        }
+
+        #illustration {
+            font-size: 0.8rem;
+            text-align: center;
+            align-items: center;
+        }
+
+        .container video {
+            display: block;
+            margin: 0 auto;
+            width: 50%;
+
+        }
+
+        .containerpic {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200%;
+        }
+
+        .image-container {
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .image-container img {
+            display: block;
+            width: 400px;
+            height: 300px;
+        }
+
+        .image-container .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .image-container:hover .overlay {
+            opacity: 1;
+        }
+
+        .image-container .overlay p {
+            text-align: center;
+            font-size: 1rem;
+            margin: 0;
+            padding: 10px;
+
+        }
+
+        #mark {
+            margin-top: 50px;
+            animation: bounce 1s infinite;
+            align-items: center;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .fm {
+            width: 80%;
+            height: 120vh;
+            margin: 0 auto;
+            background-color: #fff;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            background: url(./images/6.png) no-repeat;
+            background-size: cover;
+            font-size: 20px;
+        }
+
+        .fm .item {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+      
+
+        .container h4 {
+            margin: 10px 0;
+        }
+
+        .bt {
+            margin-top: 10px;
+            font-weight: bolder;
+        }
+
+        .con {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .con .imgs {
+            width: 50%;
+            margin: 0 20px;
+        }
+
+        .con .text {
+            width: 46%;
+        }
+
+        .back {
+            background: url(./images/6.png) no-repeat;
+            background-size: 100% 100%;
+            padding-bottom: 10%;
+        }
+        .tit1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(41, 69, 6);
+    line-height: 1em;
+    padding: 0 4vw;
+        }
+
+    </style>
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/page4.css">
+</head>
+
+<body>
+    <div class="menu">
+        <ul>
+            <li><a href="./index.html">首页</a></li>
+            <li><a href="./one.html">北京·鸟类保护壮丽历程</a></li>
+            <li class="on"><a href="./two.html">北京·鸟类共生挑战</a></li>
+            <li><a href="./page4.html">鸟类·共创家园</a></li>
+        </ul>
+        <div class="mob-nav"><span></span></div>
+    </div>
+    <div class="logo">
+        <img src="./images/三、北京·鸟类共生挑战.png" style="width: 70%;"/>
+        <!-- <h2>二、北京城市化与鸟类保护矛盾</h2> -->
+    </div>
+    <div>
+        <div class="container">
+    <div class="box2" style="padding-top: 0;margin-top: -10vw;">
+        <img src="./images/page4/7_1.png" style="margin: 0 !important;top: 10vw;height: 100% !important;"
+          class="box2Bg" />
+        <div style="padding-top: 8vw;">
+          <div class="img_desc_item">
+            <a href="./hj.html" class="img_desc" style="color: #fff;";width:100%>
+                环境问题
+            </a>
+            <img src="./images/yuyan.png" class="img_item" />
+          </div>
+        </div>
+        <div>
+          <div class="img_desc_item">
+            <img src="./images/wurenji.png" class="img_item" />
+            <a href="./sh.html" style="text-align: right;color: #fff;" class="img_desc">
+                社会问题
+            </a>
+          </div>
+        </div>
+        <div class="img_desc_item">
+          <a href="./zc.html" class="img_desc" style="color: #fff;">
+            政策问题
+          </a>
+          <img src="./images/kongjianfenbu.png" class="img_item" />
+        </div>
+      </div>
+      </div>
+    </div>
+    <!--<div class="fm">
+        <div class="item" style="writing-mode: vertical-rl;
+        text-orientation: upright;font-size: 2rem;text-shadow: 2px 2px 4px #000000;
+        display: flex;justify-content: center;
+            align-items: center;
+        ">
+            环境问题
+        </div>
+        <div class="item" style="padding-top: 5%;">
+            <p>破坏 & 影响</p>
+            <p>damage & influence</p>
+        </div>
+    </div>
+    <div class="container" data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500"
+        data-aos-easing="ease-in-sine" style="padding: 20px;font-size: 20px;color: rgb(76, 99, 48);">
+        <div class="back">
+            <p>
+            <div class=".tit1">1. 古建筑与鸟类保护的矛盾</div>
+            </p>
+            <p>&nbsp;&nbsp;在北京，每年的 4 月到 7
+                月，总能看到成群的北京雨燕在空中盘桓，风过檐铃，燕儿吟唱。北京雨燕是北京地区的一种常见的鸟类，也是全世界唯一以“北京”命名的野生候鸟。北京雨燕喜欢繁衍栖息在北京中轴线上的古建筑的堂前檐下，因为木质结构的古建筑洞穴中环境温度比较稳定，适宜它们孵化和育雏。因此，北京雨燕也被老北京人亲切的称之为“楼燕”。
+            </p>
+            <p class="bt">1)保护古建筑却误伤雨燕</p>
+            <div style="float: left;width: 50%;padding: 20px;">
+                <img src="./images/yuyan.png" alt="Image description" style="width: 100%;">
+                <div id="illustration">▲正阳门城楼 雨燕从飞檐斗拱旁掠过（图片来源/新华社）</div>
+            </div>
+
+            <p>
+                &nbsp;&nbsp;20 世纪 80 年代以后，北京古建
+                筑迎来了保护的“春天”，很多高
+                大的古建筑得到了维修和保护。为
+                了防止鸟类的粪便腐蚀漆面和木材，
+                文物单位采纳专家意见，在古建筑
+                的屋檐下拦起了防雀网。这本来是
+                一项保护古建筑的举措，但是让专
+                家们始料未及的是，此举对依赖古
+                建筑筑巢和育雏的北京雨燕来说，
+                却是“灭顶之灾”。
+
+            </p>
+            <p>
+
+                &nbsp;&nbsp;第二年的春天，当很多在他乡
+                度过冬天的雨燕再次回到北京时，
+                发现它们曾经能筑巢的洞穴已经无
+                法找到或是进不去了，它们只得另寻其它的繁殖栖身之所。
+            </p>
+            <p>
+
+                &nbsp;&nbsp;“我们刚开始对北京五环路以里的北京雨燕数量统计发现，只有三四千只。”长期从事
+                北京鸟类保护的北京师范大学副教授、中国观鸟会专业顾问赵欣如说。
+            </p>
+            <p>
+
+                &nbsp;&nbsp;赵欣如分析，北京城市栖息环境的变换是北京雨燕数量急剧减少的重要原因。城门、城
+                墙和老房子拆除，古塔及庙宇减少等，都令北京雨燕的生存环境发生剧变。雨燕筑巢繁殖条
+                件的改变，是其数量减少的基本原因之一。
+            </p>
+            <p>
+                &nbsp;&nbsp;失去落脚之地后，每年在北京地区的北京雨燕数量迅速减少。
+            </p>
+            <p class="bt">2)重建新巢还是保护老巢？</p>
+            <p>&nbsp;&nbsp;北京雨燕出现的窘境让雨燕爱好者们十分着急，一些人提出了自己的想法：“它们筑巢的巢址没有了，为何我们不给它们建个‘新家’呢？”</p>
+            <p>&nbsp;&nbsp;2008年北京奥运会前夕，北京奥林匹克森林公园专门建起了雨燕塔，这座塔由环保人士倡导、清华大学设计，塔高20米，塔身密密匝匝地为雨燕设有2240个人工巢箱，公园也希望通过人工招引的方式为北京雨燕提供新的安乐窝。但是北京雨燕并没有在人类为它们专门建造的这种居所中安家，倒是成了不少麻雀的安乐窝。
+            </p>
+
+            <div >
+
+                <div style="float: right;width: 50%;padding: 20px;">
+                    <img src="./images/yuyanta.png" alt="Image description" style="width:100%;">
+                    <div id="illustration">▲北京奥林匹克森林公园雨燕塔 （图片来源/视觉中国）</div>
+                </div>
+                    <p>&nbsp;&nbsp;能够筑巢的地方越来越少，人们给雨燕搭建的“新家园”为何它们又不喜欢呢？其实也不难理解，千百年来北京雨燕已经习惯了居住在北京城的古建筑上，人类所搭建的“新家”并不符合它们的心意。
+                    </p>
+                    <p>&nbsp;&nbsp;“与其费力建‘新房’，不如保护好‘老房’。”中国观鸟会前会长、雨燕环志志愿者付建平表示。她认为在当下做好北京古建筑保护和雨燕保护的平衡是最重要的事情，需要有科学研究的支持。
+                    </p>
+                    <p>&nbsp;&nbsp;近年来，有关鸟类栖息与古建筑保护的矛盾时有争论，但始终没有定量的科研数据作为支撑。为此，北京正阳门管理处特别组建科研专班，通过提取北京雨燕巢穴及粪便微生物DNA，定量分析其对正阳门砖木古建筑的影响程度。最终的化验结果显示：雨燕粪便与巢穴的酸碱度为中性，粪便及巢穴中的真菌、细菌以及其他微生物中未发现有对建筑木构件构成降解或腐蚀的菌群。由此证明：雨燕粪便和巢穴对木质古建不构成实质性影响，北京雨燕对古建筑的危害其实并不大。
+                    <p>&nbsp;&nbsp;随着北京城市化进程的不断发展，北京雨燕栖息生境的不断丧失让众多鸟类爱好者们很是发愁。正当志愿者们一筹莫展之时，一些观鸟爱好者带来了好消息。北京市的一些现代楼房和天宁寺桥、建国门桥、国贸桥等立交桥下都出现了雨燕的身影。北京雨燕也在不断适应着北京急剧变化的环境，它们已经找到了一些新的筑巢栖地。
+                    </p>
+                    <p>&nbsp;&nbsp;随着北京城市化进程的不断发展，北京雨燕栖息生境的不断丧失让众多鸟类爱好者们很
+                        是发愁。但是据北京市野生动物救护中心近些年开展的北京雨燕调查显示，北京雨燕的巢址
+                        在逐渐从古建向现代建筑扩散转移，它们在逐步适应北京这座城市的改变。</p>
+                    <p>&nbsp;&nbsp;经过长期的观察发现，北京雨燕对立交桥等现代化建筑的适应是一个逐步的过程。从最开始阶段，一座立交桥下最有也只有10来只北京雨燕，但是近几年，有一些立交桥居住的北京雨燕都可以达到100～300只，甚至是更多。
+                    </p>
+          
+
+
+                    <div style="clear:both;margin-top:5%"></div>
+            </div>
+        </div>
+
+        <div data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500" data-aos-easing="ease-in-sine"
+            class="back" >
+
+            <img src="./images/guanganmen.png" alt="Image description" style="width:80%;">
+            <div id="illustration">▲广安门南桥的桥下有大群雨燕繁殖广安门南桥的桥下有大群雨燕繁殖（摄影/崔雅棋）</div>
+            <p>但是付建平还是建议，北京一些现代化的建筑尤其是仿古建筑，在设计时应该给北京雨
+                燕留下一些栖居的空间。“现在一些仿古建筑仅仅染成了古建的颜色，颜色是仿古的，但是
+                屋檐的结构不是由榫卯及檩木、椽子构成，而是钢筋水泥的屋檐，几乎没有洞穴和缝隙，所
+                以就不具备能够让北京雨燕选择巢址的洞穴环境。”
+
+            </p>
+            <div class=".tit1">2.生态修复区设计：违背自然规律？
+            </div>
+            <p>&nbsp;&nbsp;无论是城市鸟类还是迁徙鸟类，它们都需要靠近水源的环境。水鸟离不开水，而一些鸟类需
+                要保留一些特定的生境，如荒地、原生林地和浅滩等。这些残存的合适生境对于迁徙的林鸟、
+                猛禽和水鸟的生存至关重要。然而，许多人工改造的环境并不能完全满足鸟类的需求。水鸟
+                需要完整、安全且食物充足的自然栖息地，而迁徙鸟类对于繁殖、迁徙停歇和越冬的栖息地
+                也有高度的依赖性。它们每年都会重复利用固定的区域，因此栖息地的丧失和质量下降可能
+                对鸟类造成致命的影响。</p>
+
+            <div >
+                <div style="float: left;width: 50%;padding: 20px;"><img src="./images/fazhanwei.png" alt="Image description" style="width:100%;">
+                    <div id="illustration">▲资料图/北京市发展和改革委员会</div>
+                </div>
+                    <p>&nbsp;&nbsp;沙河水库是一座历史悠久的水库，建于 1960 年。经过半个多世纪的时间，这里形成了一个
+                        相对稳定的湿地生态系统，包括大面积的水面、漫滩、沿岸荒地和林地。沙河的浅滩为鸟
+                        类提供了停歇、觅食和繁殖的场所。然而，随着周边建筑的增加和土地利用的改变，许多
+                        鸟类所需的生存空间面临消失的危险。为了改变这种情况，政府决定进行沙河湿地公园的
+                        施工项目，但承包商并不了解沙河的鸟类生存情况。</p>
+                    <p>&nbsp;&nbsp;沙河湿地公园的总体设计更像是一个公园，而不是一个提升生物
+                        多样性水平的荒野化设计。弯曲
+                        的水道不利于大多数鸟类的生存，
+                        尽管适合一些体型较小的鸟类栖
+                        息，但与人类接触过近，留给鸟类
+                        的空间过小，不是一个理想的方
+                        案。在局部设计方面，人工改造后
+                        的水源不适合鸟类取水。
+                    </p>
+                    <p>
+                        “让候鸟飞”工作团队专门负责沙河鸟类
+                        检测和调查的陈女士说，“人为地将水源周边砌出一个台阶使土地硬化，鸟就够不到水。如
+                        果它们很用力地去够水它们就容易掉进水里，鸟是十分害怕深水的，而周围又没有缓而平的
+                        滩地能让它们翻身，它们就会溺水。”
+                    </p>
+            </div>
+            <div style="margin-bottom :5% ;">
+            <div id="mark">↓点击图片查看说明文字</div>
+            <div class="containerpic">
+                <div class="image-container">
+                    <img src="./images/shahe2.jpg">
+                    <div class="overlay">
+                        <p>人工改造后的沙河</p>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="./images/shahe3.png" alt="Image 3">
+                    <div class="overlay">
+                        <p>2022年沙河卫星图 红色区域为仅存的荒地区域</p>
+                    </div>
+                </div>
+            </div>
+        </div></div>
+
+        <div class="back">
+
+
+
+            <div class="con">
+                <div class="imgs"><img src="./images/huangxiongwu.png" style="width: 100%;">
+                    <div id="illustration" style="padding:2% ;">▲资料图/以往出现在沙河的黄胸鹀</div>
+                </div>
+                <div class="text">
+                    <p>陈女士说，她曾在沙河观察到国家一级保护动
+                        物黄胸鹀，但随着沙河湿地公园的改造，黄胸
+                        鹀迟迟没有出现。由于大片芦苇被砍伐，沙河
+                        失去了适合黄胸鹀栖息的地方，导致它们无法
+                        在沙河停歇，并且离开了。鸟类需要适合生存
+                        和繁衍的生活空间，栖息地的缩减导致资源压
+                        缩，鸟类之间的竞争变得更加激烈，一些鸟类
+                        选择迁徙，并且可能不会再回到原来的栖息地，
+                        甚至导致鸟类灭绝。
+
+                    </p>
+                    <p> “ <span class="bt">栖息地的减少是鸟类下降的最大原因</span>
+                        ”陈女士反复强调。沙河的施工改造原本是为了提供一个人鸟共存的生态湿地，而不管是在前期准备和后期施工的过程中都没有做好适鸟性调查，把沙河湿地从适鸟性高的地区改造成了鸟类不友好的场所。
+                    </p>
+                </div>
+            </div>
+
+            <div data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500" data-aos-easing="ease-in-sine">
+
+                <div class=".tit1" style="margin-top: 3%;">3.城市灯光污染影响鸟类迁徙繁殖</div>
+                <p>&nbsp;&nbsp;北京是鸟类丰富的首都之一，也是东亚-澳大利西亚迁飞区的重要一站。每年春秋两季，无
+                    数候鸟经过北京迁徙。然而，城市环境对鸟类生活造成了影响。它们的生物周期被城市的
+                    光污染扰乱，它们的歌唱淹没在汽车的鸣笛声和嘈杂的环境中，噪声甚至还会干扰它们的
+                    认知功能。光污染会改变鸟类的行为、影响它们的迁徙、觅食和声音交流，还会影响它们
+                    的活动水平和能量消耗。
+                </p>
+                <p>&nbsp;&nbsp;光污染对鸟类的影响主要表现在两个方面。首先，明亮的城市灯光会迷惑候鸟并使其失去
+                    方向。夜间迁徙的候鸟特别容易受到光污染的影响。研究表明，大多数夜间迁徙的候鸟是
+                    体型较小的物种，它们可能会因为夜间灯光的干扰而降落在低质量的栖息地上，最终导致
+                    能量耗尽、被捕食和碰撞风险增加。
+                </p>
+                <p>&nbsp;&nbsp;其次，致命的玻璃幕墙也对鸟类构成威胁。灯光吸引鸟类进入城市后，它们可能在白天撞击
+                    反光的玻璃幕墙而死亡。鸟类没有与玻璃共存的经验，对玻璃没有概念，并且它们的侧方视
+                    力较强，正面视力较弱。这使得它们在飞行过程中难以发现前方的障碍物。此外，鸟类对移
+                    动物体更敏感，很难注意到前方的致命玻璃。
+                </p>
+                <img src="images/shahe7.jpg" alt="Image description" style="width:50%;">
+                <div id="illustration">▲2022年6月9日，北京一只死于鸟撞的红喉歌鸲｜生命观察</div>
+                <p>白天鸟撞主要出现在两种情况下：一种是鸟类误认为反光玻璃上的环境可以到达，飞向玻璃；
+                    另一种是鸟类透过玻璃看到另一侧的植物或空间，误认为可以穿过玻璃。夜间人造光线不仅
+                    让鸟类失去方向感，还会吸引鸟类聚集在光源周围，增加撞击建筑物的风险。
+                </p>
+                <p>总之，城市环境对鸟类生存带来了挑战，光污染和玻璃幕墙对鸟类造成了影响。为了保护鸟
+                    类，我们应该采取措施减少光污染，改善建筑设计，减少玻璃幕墙的使用，并提供安全的飞
+                    行通道和栖息地。
+                </p>
+            </div>
+        </div>
+
+
+        <div class="fm" style="width: 100%;">
+            <div class="item" style="writing-mode: vertical-rl;
+            text-orientation: upright;font-size: 2rem;text-shadow: 2px 2px 4px #000000;
+            display: flex;justify-content: center;
+                align-items: center;
+            ">
+                社会问题
+            </div>
+            <div class="item" style="padding-top: 5%;">
+                <p style="color: #fff;">侵扰 & 危害</p>
+                <p style="color: #fff;">Infestation & harm</p>
+            </div>
+        </div>
+        <div class="back">
+            <div data-aos="fade-left" data-aos-offset="300" data-aos-duration="1500" data-aos-easing="ease-in-sine">
+
+                <p class="bt">1.人为侵扰飞鸟
+                </p>
+                <p>&nbsp;&nbsp;近年来，随着北京生态环境的一步步变好，京城一些水域中出现大量珍稀鸟类的身影。但是，有一些观鸟者为了拍出好看的视频而用无人机肆意的追逐飞鸟。人们自以为的不经意举动，却极大的影响了鸟群，甚至导致一些鸟类停止觅食休息，飞离本地。
+                </p>
+                <div class="con">
+                    <div class="imgs">
+                        <img src="./images/wurenji.png" alt="Image description" style="width:100%;">
+                        <div id="illustration">▲大石河边有人正在组装无人机</div>
+                    </div>
+                    <div class="text">
+                        <p>
+                            那么无人机是否会对鸟类造成危害呢？
+                            网上对此一直有争论。李理说到：“我
+                            们从日常巡护工作中得出的结论是，无
+                            人机会对鸟群造成危害。首先，无人机
+                            会打扰鸟群的栖息、觅食，尤其是那些
+                            从南方迁徙而来的鸟类，在北京短暂停
+                            留时非常需要安静的环境。其次，无人
+                            机会干扰鸟类迁徙的路线，甚至会阻断
+                            一些胆小幼鸟的飞行和迁徙路线，导致
+                            它们掉队。”
+
+                        </p>
+                        <p>
+                            &nbsp;&nbsp;曾经在官厅水库，一架无人机就干扰了一队迁徙的天鹅，其中，有一只年幼的天鹅
+                            就因无人机的嗡嗡声吓得掉了队。当时，野保站的巡护队员们第一时间便去寻找无人机
+                            的操控者，发现他们在对岸后，就开车追了过去。等到了对岸，他们又跑到了更远的地方。
+
+                        </p>
+                        <p>
+                            &nbsp;&nbsp;“曾经也有市民建议通过设立电子围栏阻止无人机惊扰鸟群。但是再高端的技防、
+                            再严密的人防，其实，都不如大家提高保护意识，真正做到关爱候鸟。”李理说到。
+                        </p>
+                    </div>
+                </div>
+                <p>
+                    &nbsp;&nbsp;近几年，因为人为侵扰从而惊吓到鸟类的事件从出不穷。不仅是北京，全国范围内
+                    都在频繁出现。李理呼吁到，市民在对鸟类关注的同时，不要干扰它们的正常生活，做
+                    到爱鸟而不伤鸟。
+                </p>
+
+                </p>
+                <p class="bt">2.盗猎珍稀鸟种</p>
+                <p>
+                    &nbsp;&nbsp;近年来，虽然《北京市野生动物保护管理条例》明确规定禁止捕猎野生动物。但是一些
+                    鸟类盗猎惯犯的捕猎行依然在持续，而且还借助不同的工具提高了捕猎效率。同时，他们采
+                    用了更为隐蔽的方式，在时间地点选择上更具反侦查性，盗猎的行为依然存在。
+                </p>
+                <p>
+                    &nbsp;&nbsp;鸟类盗猎既包括传统的盗猎方式，也包括一些新兴的方式。传统的盗猎以捕鸟网、弹弓、
+                    毒杀、拍笼、套子为主。新方式则包括粘鸟胶，配合弹弓使用的夜视仪、红外线仪等。还有
+                    的盗猎分子使用弹簧机关做的弹套，由钢丝制成，灵敏度非常高，野生动物一旦碰到就很难
+                    逃脱。
+
+                </p>
+
+            </div>
+            <div id="mark">↓点击图片查看说明文字</div>
+            <div class="containerpic">
+                <div class="image-container">
+                    <img src="./images/buniaowang.png" alt="Image 1">
+                    <div class="overlay">
+                        <p>树林里的捕鸟网</p>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="./images/yangjie.png" alt="Image 2">
+                    <div class="overlay">
+                        <p>杨杰拆除猎夹和鸟网</p>
+                    </div>
+                </div>
+            </div>
+            <p>那么我们应该采取哪些有效手段来杜绝鸟类盗猎行为呢？
+            </p>
+            <p>&nbsp;&nbsp;自然之友野鸟会志愿者、北京市昌平区人民法院法官杨杰表示：杜绝鸟类盗猎行为必须发动社会公众的力量。在看到盗猎时，不应该认为与己无关而高高挂起，甚至是抱着看热闹
+                的心态，要有举报违法行为的意识；同时针对盗猎工具的售卖，也希望各大电商平台，不能
+                只注重销售利润，更应该承担起应负的社会责任。</p>
+            <p style="padding-bottom: 6%;">&nbsp;&nbsp;此外，当公众在遇到盗猎行为时，可适当制止和进行提示。面对有专业装备的惯犯，或
+                者不听从劝阻的，可以在保证自身安全的情况下，离开现场后再进行报案，这个过程应当进
+                行全程的录音录像或者拍照，以方便执法人员后期取证追究责任，同时也是对自身取证过程
+                的保护。</p>
+        </div>
+
+        <div class="fm" style="width: 100%;">
+            <div class="item" style="writing-mode: vertical-rl;
+                text-orientation: upright;font-size: 2rem;text-shadow: 2px 2px 4px #000000;
+                display: flex;justify-content: center;
+                    align-items: center;
+                ">
+                政策问题
+            </div>
+            <div class="item" style="padding-top: 5%;">
+                <p style="color: #fff;">漏洞 & 难点</p>
+                <p style="color: #fff;">Loopholes & difficulties</p>
+            </div>
+        </div>
+        <div class="back" style="padding-bottom: 15%;">
+
+            <div data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500" data-aos-easing="ease-in-sine">
+
+                <p style="margin-top: 3%;">《北京市湿地保护条例》(简称《条例》)于2013年5月1日起正式实施。实施以来，全市通过政策保障、科技支撑、科普教育，不断加大湿地保护恢复力度，湿地生态质量逐步改善，生态功能不断优化。条例设立了符合北京市实际的湿地日，北京也成为全国第一个拥有专属“湿地日”的城市。
+                </p>
+                <p>湿地的保护于鸟类保护是齐头并进的，然而我国对于在城市中生活的野生鸟类在政策和法律方面的问题仍有需要改进的部分，如对于生态用地的界定以及志愿者在进行鸟类保护中应该遵循的法律标准和需要防范的法律风险。
+                </p>
+                <p class="bt">1.生态保护红线的划定仍然需要优化</p>
+                <p>2006年, 北京市批准《北京市限建区规划(2006年–2020年)》作为北京城市总体规划(2004 年–2020年)的专项规划之一, 从限制建设的角度将
+                    北京市域74.4%的土地划入限制建设线，这条限制建设线对于鸟类保护而言也就是所谓的“生态红线”。</p>
+                <div class="container4" data-aos="zoom-in">
+                   
+                    <canvas id="birdChart"></canvas>
+                </div>
+                <p>然而，这条红线仍有需要优化的空间。</p>
+                <p>自然保护区、生态保护红线和限制建设线的覆盖面积分别占北京市域面积的4.51%、26.83%和
+                    74.40%。北京市域的自然保护区覆盖率(4.51%)略低于全国平均水平。而这一数据与城市人口密度有关，北京作为我国一线城市人口密度较高，对于鸟类保护有一定影响。</p>
+                <p>高密度人口聚居区的土地利用颇为精细化, 因此, 在人口高密度地区的濒危物种保护措施需要融入土地利用和管理行为中。首先, 需要将濒危物种 拟定保护区域纳入城市总体规划中, 与现有具有保
+                    护性质的分区规划进行整合,
+                    甚至影响分区规划; 其次, 特别针对城市建成区和乡村生境区, 受胁鸟类栖息地的保护需要融入现有各类土地的具体管理措施中, 以保证城市土地在为人类生活提供空间
+                    和资源的同时也为野生动物提供必要的栖息环境。
+                </p>
+                <img src="./images/kongjianfenbu.png" alt="Image description" style="width:100%;">
+            </div> </div>
+            <div id="illustration">▲北京未被自然保护区和生态保护红线覆盖的受胁鸟类栖息地空间分布</div>
+            <div data-aos="fade-left" data-aos-offset="300" data-aos-duration="1500" data-aos-easing="ease-in-sine">
+                <p class="bt">2.野生鸟类公益保护民事诉讼存在难点</p>
+                <p>目前我国在鸟类保护法律政策方面以及有了一定建设，但在民事诉讼，尤其是在公益组织发起的诉讼中仍然存在一些困难。</p>
+                <p class="bt">（1）野生动物资源损害确定难</p>
+                <p>《中华人民共和国野生动物保护法》将 1737 种野生动物纳入保护范围，其中国家重点保护野 生动物 256 种，有重要生态、科学、社会价值的陆生 野生动物 1481
+                    种。不同野生动物受保护等级不同，
+                    经济价值也不同，因此明确受侵害野生动物种属及数量是确定野生动物资源损害的关键。</p>
+                <p>其中受侵害的鸟类数量以及种类鉴定仍然存在一些困难。就已有案例来看，出售野生鸟类的行为来看，因其违法行为受到侵害的野生鸟类不仅包括存放在冰柜 中被公安机关依法扣押的野生鸟类，还包括已出售给
+                    饭店、农贸市场经营户的野生鸟类和未捡拾或未被当场毒杀的野生鸟类。对于被公安机关依法扣押的野生 鸟类的数量可通过清点及司法鉴定的方式予以确定， 若仅以该部分受侵害的野生鸟类数量追究毛某某公益
+                    损害赔偿责任，则受损的野生动物资源势必无法得到 全面救济，但若对全部受侵害的野生鸟类数量主张公 益损害赔偿责任，则需要相应的证据予以证实，否则也无法得到法院的认可。</p>
+                <p class="bt">（2）民事公益诉讼请求确定难</p>
+                <p>在已有鸟类保护民事案件中，《中华人民共和国民法通则》（以 下简称《民法通则》）《中华人民共和国侵权责任法》（以 下简称《侵权责任法》）虽然贯彻了法不溯及既往的原
+                    则，但却无法达到最大限度保护社会公共利益的目的
+                    ；
+                    而适用民法典则虽达到最大限度保护社会公共利益的
+                    目的，却有违反法不溯及既往原则之嫌。因此，民事诉讼中的鸟类保护问题是适用《民法通则》《侵权责任法》，还是适用民法典主张公益损害赔偿责任存有一定争议。
+                </p>
+                <p>保护野生动物资源，是维护生物多样性和生态平衡的重要举措，也是推进生态文明建设的重要内容。 检察机关在办理野生动物资源保护刑事附带民事公益诉讼案件时，不仅要依法严惩涉野生动物犯罪，更要
+                    履行好公益诉讼监督职能，全面核实公益损害情况， 准确厘定公益诉讼请求，不断优化公益诉讼履职，强化野生动物资源保护工作，为守护生物多样性和生态安全贡献检察力量</p>
+            <div style="clear: both;margin-top: 5%;"></div>
+                </div>
+        </div>
+    </div>-->
+
+    <div id="arrow-container">
+        <div id="arrow"></div>
+        <div id="arrow-text"><a href="./page4.html">点击了解更多内容</a></div>
+    </div>
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(".mob-nav").click(function () {
+            if ($(this).hasClass('on')) {
+                $(this).removeClass('on')
+                $('.menu ul').slideUp()
+            } else {
+                $(this).addClass('on')
+                $('.menu ul').slideDown()
+            }
+        })
+    </script>
+    <script src="js/aos.js"></script>
+    <script>AOS.init()</script>
+
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Creating the chart
+        var ctx = document.getElementById('birdChart').getContext('2d');
+        var birdChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['自然保护区面积', '生态保护红线覆盖面积', '限制建设线覆盖面积'],
+                datasets: [{
+                    label: 'Bird Conservation Policy Data',
+                    data: [4.51, 26.83, 74.7],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)'
+                    ]
+                }]
+            }
+        });
+    </script>
+
+    <script>
+        // Creating the chart
+        var ctx = document.getElementById('wildlifeChart').getContext('2d');
+        var wildlifeChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['哺乳动物', '鸟类', '爬行动物', '鱼类', '无脊椎动物'],
+                datasets: [{
+                    label: 'Wildlife Conservation Species Data',
+                    data: [90, 67, 45, 30, 20],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)'
+                    ]
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

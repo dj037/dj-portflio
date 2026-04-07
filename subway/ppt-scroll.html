@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开往春天的地铁 | 滚动展览</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #0e0e0e;
+            --line: rgba(255, 255, 255, 0.1);
+            --accent: #ff4a00;
+            --accent-soft: rgba(255, 74, 0, 0.22);
+            --text: #f0f0f0;
+            --font-display: "Syne", sans-serif;
+            --font-mono: "Space Mono", monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-display);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(60vw 40vw at 8% 0%, rgba(255, 74, 0, 0.14), transparent 60%),
+                radial-gradient(50vw 30vw at 90% 10%, rgba(255, 255, 255, 0.05), transparent 62%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(5, 5, 5, 0.88) 0%, rgba(5, 5, 5, 0.22) 22%, rgba(5, 5, 5, 0.08) 78%, rgba(5, 5, 5, 0.92) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .blend-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(42vw 28vw at 50% 50%, rgba(255, 74, 0, 0.15), transparent 72%);
+            opacity: 0.15;
+            transition: opacity 0.2s linear;
+            z-index: 1;
+            mix-blend-mode: screen;
+        }
+
+        .noise {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200vh;
+            background: transparent url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: -1;
+            animation: noise 0.25s steps(2) infinite;
+        }
+
+        @keyframes noise {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-3%, 1%); }
+            50% { transform: translate(2%, -2%); }
+            75% { transform: translate(1%, 3%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .progress-track {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .progress {
+            width: 100%;
+            height: 100%;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--accent), #ff7a45);
+            box-shadow: 0 0 14px var(--accent-soft);
+            transition: width 0.08s linear;
+        }
+
+        main {
+            width: min(1280px, 100%);
+            margin: 0 auto;
+            padding: 0.8rem 0.8rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slides {
+            display: grid;
+            gap: 0;
+        }
+
+        .slide-scene {
+            min-height: 116vh;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 8vh;
+        }
+
+        .slide-scene::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 24vh;
+            background: linear-gradient(180deg, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.56) 85%, rgba(5, 5, 5, 0.88) 100%);
+            pointer-events: none;
+        }
+
+        .slide {
+            position: relative;
+            width: min(1140px, 93vw);
+            position: sticky;
+            top: 10vh;
+            border: 1px solid var(--line);
+            border-radius: 0;
+            overflow: hidden;
+            background: var(--panel);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.42);
+            opacity: 0;
+            transform: translateY(38px);
+            transition: opacity 0.75s cubic-bezier(0.19, 1, 0.22, 1), transform 0.75s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+        }
+
+        .slide.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide.is-active {
+            border-color: rgba(255, 74, 0, 0.45);
+            box-shadow: 0 22px 65px rgba(0, 0, 0, 0.52), 0 0 0 1px rgba(255, 74, 0, 0.16);
+            filter: saturate(1.05);
+        }
+
+        .slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 0;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+        }
+
+        .slide img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+            transition: transform 0.15s linear;
+        }
+
+        .back {
+            position: fixed;
+            left: 18px;
+            top: 16px;
+            z-index: 50;
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(0, 0, 0, 0.35);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+        }
+
+        .back {
+            font-family: var(--font-mono);
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .back:hover {
+            border-color: var(--accent);
+            background: rgba(255, 74, 0, 0.14);
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 0.4rem 0.4rem 3rem;
+            }
+
+            .slide-scene {
+                min-height: 84vh;
+                padding-top: 6vh;
+            }
+
+            .slide {
+                border-radius: 0;
+                width: 96vw;
+                top: 7vh;
+            }
+
+            .slide::after {
+                border-radius: 0;
+            }
+
+            .back {
+                left: 12px;
+                top: 10px;
+                width: 36px;
+                height: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="blend-layer" id="blendLayer" aria-hidden="true"></div>
+
+    <a class="back" href="../DJ.html#project-subway" aria-label="返回 DJ 页面">←</a>
+
+    <header class="progress-track" aria-hidden="true">
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="slides" id="slides"></section>
+    </main>
+
+    <script>
+        const totalSlides = 21;
+        const slidesRoot = document.getElementById("slides");
+        const progressBar = document.getElementById("progressBar");
+
+        for (let i = 1; i <= totalSlides; i++) {
+            const num = String(i).padStart(2, "0");
+            const scene = document.createElement("article");
+            scene.className = "slide-scene";
+            scene.dataset.index = String(i);
+
+            const figure = document.createElement("figure");
+            figure.className = "slide";
+            figure.dataset.index = String(i);
+
+            const img = document.createElement("img");
+            img.loading = i <= 3 ? "eager" : "lazy";
+            img.alt = "PPT 第 " + i + " 页";
+            img.src = "slides/slide-" + num + ".jpg";
+
+            figure.appendChild(img);
+            scene.appendChild(figure);
+            slidesRoot.appendChild(scene);
+        }
+
+        const sceneEls = Array.from(document.querySelectorAll(".slide-scene"));
+        const slideEls = Array.from(document.querySelectorAll(".slide"));
+        const imgEls = slideEls.map(el => el.querySelector("img"));
+        const blendLayer = document.getElementById("blendLayer");
+
+        const revealObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                    }
+                });
+            },
+            { threshold: 0.12 }
+        );
+
+        slideEls.forEach(el => revealObserver.observe(el));
+
+        let ticking = false;
+
+        function updateProgressAndParallax() {
+            const scrollTop = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
+            progressBar.style.width = progress + "%";
+
+            const viewportCenter = window.innerHeight * 0.5;
+            let strongestFocus = 0;
+
+            slideEls.forEach((slide, index) => {
+                const sceneRect = sceneEls[index].getBoundingClientRect();
+                const img = imgEls[index];
+                const slideCenter = sceneRect.top + sceneRect.height * 0.5;
+                const dist = Math.abs(slideCenter - viewportCenter);
+                const ratio = Math.min(dist / (window.innerHeight * 0.85), 1);
+                const focus = 1 - ratio;
+                if (focus > strongestFocus) {
+                    strongestFocus = focus;
+                }
+
+                const imgShift = (viewportCenter - slideCenter) * 0.044;
+                img.style.transform = "translate3d(0," + imgShift.toFixed(2) + "px,0)";
+
+                slide.style.transform = "translateY(0)";
+
+                if (ratio < 0.3) {
+                    slide.classList.add("is-active");
+                } else {
+                    slide.classList.remove("is-active");
+                }
+            });
+
+            blendLayer.style.opacity = String(0.08 + strongestFocus * 0.24);
+
+            ticking = false;
+        }
+
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(updateProgressAndParallax);
+                ticking = true;
+            }
+        }
+
+                    window.addEventListener("scroll", onScroll, { passive: true });
+                    window.addEventListener("resize", onScroll);
+
+        requestAnimationFrame(() => {
+            updateProgressAndParallax();
+            slideEls.forEach((el, idx) => {
+                setTimeout(() => {
+                    el.classList.add("is-visible");
+                }, idx * 40);
+            });
+        });
+    </script>
+</body>
+</html>

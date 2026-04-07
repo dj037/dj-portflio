@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/page.css">
+  <link rel="stylesheet" href="./css/menu.css">
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  
+    
+  <title>三、北京对于鸟类保护问题的解决</title>
+   <!-- Chart.js -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <style>
+    body {
+        padding-bottom: 220px;
+        color: #517938;
+        background: #fff !important;
+    }
+
+    @font-face {
+        font-family: de;
+        src: url("./font/FZYANZQKSJF.TTF");
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url(./images/two.jpg);
+        width: 100%;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .logo h2 {
+        font-size: 5rem;
+        color: white;
+        text-align: center;
+        font-family: de;
+    }
+
+    .container {
+        width: 80%;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        font-size: 24px;
+    }
+
+
+
+    .container img {
+        display: block;
+        margin: 0 auto;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .container img:hover {
+        transform: scale(1.03);
+    }
+
+    #illustration {
+        font-size: 0.8rem;
+        text-align: center;
+        align-items: center;
+    }
+
+    .container video {
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+
+    }
+
+    .containerpic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200%;
+    }
+
+    .image-container {
+        position: relative;
+        margin: 0 10px;
+    }
+
+    .image-container img {
+        display: block;
+        width: 400px;
+        height: 300px;
+    }
+
+    .image-container .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .image-container:hover .overlay {
+        opacity: 1;
+    }
+
+    .image-container .overlay p {
+        text-align: center;
+        font-size: 1rem;
+        margin: 0;
+        padding: 10px;
+
+    }
+
+    #mark {
+        margin-top: 50px;
+        animation: bounce 1s infinite;
+        align-items: center;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .fm {
+        width: 80%;
+        height: 120vh;
+        margin: 0 auto;
+        background-color: #fff;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        background: url(./images/6.png) no-repeat;
+        background-size: 100% 100%;
+        font-size: 20px;
+    }
+
+    .fm .item {
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .container p {
+        color: #517938;
+    }
+
+    .container h4 {
+        margin: 10px 0;
+    }
+
+    .bt {
+        margin-top: 10px;
+        font-weight: bolder;
+    }
+
+    .con {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .con .imgs {
+        width: 50%;
+        margin: 0 20px;
+    }
+
+    .con .text {
+        width: 46%;
+    }
+
+    .back {
+      
+        background-size: 100% 100%;
+        padding-bottom: 10%;
+    }
+    .tit1 {
+font-size: 20px;
+font-weight: bold;
+color: rgb(41, 69, 6);
+line-height: 2em;
+padding: 0 4vw;
+}
+</style>
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/mg.css">
+</head>
+
+<body>
+  <div class="menu">
+    <ul>
+      <li><a href="./two.html">返回</a></li>
+      <li><a href="./hj.html">环境问题</a></li>
+      <li><a href="./sh.html">社会问题</a></li>
+      <li class="on"><a href="./zc.html">政策问题</a></li>
+    </ul>
+    <div class="mob-nav"><span></span></div>
+  </div>
+  <div style="height: 44px;">
+
+  </div>
+<div class="container" data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500"
+    data-aos-easing="ease-in-sine" style="padding: 20px;font-size: 20px;color: rgb(76, 99, 48);">
+
+
+
+    <div class="fm" style="width: 100%;">
+        <div class="item" style="writing-mode: vertical-rl;
+            text-orientation: upright;font-size: 2rem;text-shadow: 2px 2px 4px #000000;
+            display: flex;justify-content: center;
+                align-items: center;
+            ">
+            政策问题
+        </div>
+        <div class="item" style="padding-top: 5%;">
+            <p style="color: #fff;">漏洞 & 难点</p>
+            <p style="color: #fff;">Loopholes & difficulties</p>
+        </div>
+    </div>
+    <div class="back" style="padding-bottom: 15%;">
+
+        <div data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500" data-aos-easing="ease-in-sine" style="padding-top: 3%;">
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+            <p>《北京市湿地保护条例》(简称《条例》)于2013年5月1日起正式实施。实施以来，全市通过政策保障、科技支撑、科普教育，不断加大湿地保护恢复力度，湿地生态质量逐步改善，生态功能不断优化。条例设立了符合北京市实际的湿地日，北京也成为全国第一个拥有专属“湿地日”的城市。
+            </p>
+            <p>湿地的保护于鸟类保护是齐头并进的，然而我国对于在城市中生活的野生鸟类在政策和法律方面的问题仍有需要改进的部分，如对于生态用地的界定以及志愿者在进行鸟类保护中应该遵循的法律标准和需要防范的法律风险。
+            </p>
+            <p class="bt">1.生态保护红线的划定仍然需要优化</p>
+            <p>2006年, 北京市批准《北京市限建区规划(2006年–2020年)》作为北京城市总体规划(2004 年–2020年)的专项规划之一, 从限制建设的角度将
+                北京市域74.4%的土地划入限制建设线，这条限制建设线对于鸟类保护而言也就是所谓的“生态红线”。</p>
+        
+            <p>然而，这条红线仍有需要优化的空间。</p>
+            <div class="container4" data-aos="zoom-in">
+                <!-- The canvas element to display the chart -->
+                <canvas id="birdChart"></canvas>
+            </div>
+            <p>自然保护区、生态保护红线和限制建设线的覆盖面积分别占北京市域面积的4.51%、26.83%和
+                74.40%。北京市域的自然保护区覆盖率(4.51%)略低于全国平均水平。而这一数据与城市人口密度有关，北京作为我国一线城市人口密度较高，对于鸟类保护有一定影响。</p>
+            <p>高密度人口聚居区的土地利用颇为精细化, 因此, 在人口高密度地区的濒危物种保护措施需要融入土地利用和管理行为中。首先, 需要将濒危物种 拟定保护区域纳入城市总体规划中, 与现有具有保
+                护性质的分区规划进行整合,
+                甚至影响分区规划; 其次, 特别针对城市建成区和乡村生境区, 受胁鸟类栖息地的保护需要融入现有各类土地的具体管理措施中, 以保证城市土地在为人类生活提供空间
+                和资源的同时也为野生动物提供必要的栖息环境。
+            </p>
+            <img src="./images/kongjianfenbu.png" alt="Image description" style="width:100%;">
+        </div>
+        <div id="illustration">▲北京未被自然保护区和生态保护红线覆盖的受胁鸟类栖息地空间分布</div>
+        <div data-aos="fade-left" data-aos-offset="300" data-aos-duration="1500" data-aos-easing="ease-in-sine">
+            <p class="bt">2.野生鸟类公益保护民事诉讼存在难点</p>
+            <p>目前我国在鸟类保护法律政策方面以及有了一定建设，但在民事诉讼，尤其是在公益组织发起的诉讼中仍然存在一些困难。</p>
+            <p class="bt">（1）野生动物资源损害确定难</p>
+            <p>《中华人民共和国野生动物保护法》将 1737 种野生动物纳入保护范围，其中国家重点保护野 生动物 256 种，有重要生态、科学、社会价值的陆生 野生动物 1481
+                种。不同野生动物受保护等级不同，
+                经济价值也不同，因此明确受侵害野生动物种属及数量是确定野生动物资源损害的关键。</p>
+            <p>其中受侵害的鸟类数量以及种类鉴定仍然存在一些困难。就已有案例来看，出售野生鸟类的行为来看，因其违法行为受到侵害的野生鸟类不仅包括存放在冰柜 中被公安机关依法扣押的野生鸟类，还包括已出售给
+                饭店、农贸市场经营户的野生鸟类和未捡拾或未被当场毒杀的野生鸟类。对于被公安机关依法扣押的野生 鸟类的数量可通过清点及司法鉴定的方式予以确定， 若仅以该部分受侵害的野生鸟类数量追究毛某某公益
+                损害赔偿责任，则受损的野生动物资源势必无法得到 全面救济，但若对全部受侵害的野生鸟类数量主张公 益损害赔偿责任，则需要相应的证据予以证实，否则也无法得到法院的认可。</p>
+            <p class="bt">（2）民事公益诉讼请求确定难</p>
+            <p>在已有鸟类保护民事案件中，《中华人民共和国民法通则》（以 下简称《民法通则》）《中华人民共和国侵权责任法》（以 下简称《侵权责任法》）虽然贯彻了法不溯及既往的原
+                则，但却无法达到最大限度保护社会公共利益的目的
+                ；
+                而适用民法典则虽达到最大限度保护社会公共利益的
+                目的，却有违反法不溯及既往原则之嫌。因此，民事诉讼中的鸟类保护问题是适用《民法通则》《侵权责任法》，还是适用民法典主张公益损害赔偿责任存有一定争议。
+            </p>
+            <p style="margin-bottom: -30%;">保护野生动物资源，是维护生物多样性和生态平衡的重要举措，也是推进生态文明建设的重要内容。 检察机关在办理野生动物资源保护刑事附带民事公益诉讼案件时，不仅要依法严惩涉野生动物犯罪，更要
+                履行好公益诉讼监督职能，全面核实公益损害情况， 准确厘定公益诉讼请求，不断优化公益诉讼履职，强化野生动物资源保护工作，为守护生物多样性和生态安全贡献检察力量</p>
+            </div>
+           
+    </div>
+</div>
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <script>
+    $(".mob-nav").click(function () {
+      if ($(this).hasClass('on')) {
+        $(this).removeClass('on')
+        $('.menu ul').slideUp()
+      } else {
+        $(this).addClass('on')
+        $('.menu ul').slideDown()
+      }
+    })
+  </script>
+  <script src="js/aos.js"></script>
+  <script>AOS.init()</script>
+ <!-- jQuery and Bootstrap JS -->
+ <!-- jQuery and Bootstrap JS -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ <script>
+     // Creating the chart
+     var ctx = document.getElementById('birdChart').getContext('2d');
+     var birdChart = new Chart(ctx, {
+         type: 'pie',
+         data: {
+             labels: ['自然保护区面积', '生态保护红线覆盖面积', '限制建设线覆盖面积'],
+             datasets: [{
+                 label: 'Bird Conservation Policy Data',
+                 data: [4.51, 26.83, 74.7],
+                 backgroundColor: [
+                     'rgba(255, 99, 132, 0.6)',
+                     'rgba(54, 162, 235, 0.6)',
+                     'rgba(255, 206, 86, 0.6)'
+                 ]
+             }]
+         }
+     });
+ </script>
+
+ <script>
+     // Creating the chart
+     var ctx = document.getElementById('wildlifeChart').getContext('2d');
+     var wildlifeChart = new Chart(ctx, {
+         type: 'bar',
+         data: {
+             labels: ['哺乳动物', '鸟类', '爬行动物', '鱼类', '无脊椎动物'],
+             datasets: [{
+                 label: 'Wildlife Conservation Species Data',
+                 data: [90, 67, 45, 30, 20],
+                 backgroundColor: [
+                     'rgba(255, 99, 132, 0.6)',
+                     'rgba(54, 162, 235, 0.6)',
+                     'rgba(255, 206, 86, 0.6)',
+                     'rgba(75, 192, 192, 0.6)',
+                     'rgba(153, 102, 255, 0.6)'
+                 ]
+             }]
+         },
+         options: {
+             scales: {
+                 yAxes: [{
+                     ticks: {
+                         beginAtZero: true
+                     }
+                 }]
+             }
+         }
+     });
+ </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/menu.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+
+    #video-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @font-face {
+      font-family: de;
+      src: url("./font/FZYANZQKSJF.TTF");
+    }
+
+    .ban-title {
+      z-index: 99;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 auto;
+      transform: translateY(1cm);
+    }
+    .ban-title img{
+      width: 95%
+      
+    }
+
+    
+
+    #arrow-container {
+      bottom: 40px;
+    }
+
+    #arrow-container #arrow {
+      background-image: url("./images/arrow1.png");
+    }
+
+    #playBtn {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      color: #fff;
+      z-index: 999;
+      font-size: 25px;
+    }
+
+    .back-home {
+      position: fixed;
+      left: 18px;
+      top: 16px;
+      z-index: 1200;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      text-decoration: none;
+      font-family: "Space Mono", monospace;
+      font-size: 18px;
+      line-height: 1;
+      transition: border-color 0.25s ease, background-color 0.25s ease;
+    }
+
+    .back-home:hover {
+      border-color: #ff4a00;
+      background: rgba(255, 74, 0, 0.14);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .back-home {
+        left: 12px;
+        top: 10px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="back-home" href="../DJ.html#project-bird" aria-label="返回主页面">←</a>
+
+  <div id="video-container">
+    <video autoplay loop muted poster="./images/video.jpg">
+      <source src="./video/open.mp4" type="video/mp4">
+    </video>
+  </div>
+  <a href="javascript:;" id="playBtn">播放</a>
+  
+  <div id="arrow-container">
+    <div class="ban-title">
+      <img src="./images/北京鸟类生态 大标题.png" alt="">
+    </div>
+    <div id="arrow"></div>
+    <div id="arrow-text"><a href="./one.html">点击了解更多内容</a></div>
+  </div>
+
+  
+  <div class="menu">
+    <ul>
+      <li class="on"><a href="./index.html">首页</a></li>
+      <li><a href="./one.html">北京·鸟类保护壮丽历程</a></li>
+      <li><a href="./two.html">北京·鸟类共生挑战</a></li>
+      <li><a href="./page4.html">鸟类·共创家园</a></li>
+      <li><a href=""><audio id="audioPlayer" src="./video/open.mp3"></audio></a></li>
+    </ul>
+    <div class="mob-nav"><span></span></div>
+  </div>
+
+
+  <script>
+    // 箭头文字跳动开始
+    // Scroll to content when arrow is clicked
+    var arrowContainer = document.getElementById("arrow-container");
+    arrowContainer.addEventListener("click", function () {
+      document.getElementById("content").scrollIntoView({ behavior: "smooth" });
+    });
+    // 箭头文字跳动结束
+
+  </script>
+
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <script>
+    $(".mob-nav").click(function () {
+      if ($(this).hasClass('on')) {
+        $(this).removeClass('on')
+        $('.menu ul').slideUp()
+      } else {
+        $(this).addClass('on')
+        $('.menu ul').slideDown()
+      }
+    })
+    var audio = $('#audioPlayer')[0];
+
+    $('#playBtn').click(function () {
+      if (audio.paused) {
+        audio.play();
+        $('#playBtn').text('暂停');
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        $('#playBtn').text('播放');
+      }
+    });
+  </script>
+
+</body>
+
+</html>

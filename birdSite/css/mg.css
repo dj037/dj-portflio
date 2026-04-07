@@ -1,0 +1,46 @@
+.tit1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(41, 69, 6);
+    line-height: 2em;
+    padding: 0 4vw;
+}
+
+.desc2{
+    font-size: 20px;
+    color: rgb(76, 99, 48);
+    line-height: 2em;
+    text-indent: 2em;
+    padding: 0 4vw;
+}
+
+.box2{
+    position: relative;
+    padding: 2vw 0 0;
+}
+
+.box2Bg{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.descItem{
+    display: flex;
+    align-items: center;
+}
+.descItem .desc2{
+    padding-right: 1vw;
+}
+.descItem .descImg{
+    width: 50% !important;
+    padding-right: 4vw;
+}
+.container img{
+    transition: all 0.5s;
+}
+.container img:hover{
+    transform: scale(1.05);
+}

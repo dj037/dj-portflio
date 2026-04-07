@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/page.css">
+  <link rel="stylesheet" href="./css/menu.css">
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <title>三、北京对于鸟类问题保护的解决</title>
+  <style>
+    body {
+      background: #fff !important;
+    }
+
+    @font-face {
+      font-family: de;
+      src: url("./font/FZYANZQKSJF.TTF");
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url(./images/three.png);
+      width: 100%;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .logo h2 {
+      font-size: 5rem;
+      color: white;
+      text-align: center;
+      font-family: de;
+    }
+
+    .container {
+      width: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    #arrow-container #arrow {
+      background-image: url("./images/arrow2.png");
+    }
+  </style>
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/yg.css">
+</head>
+
+<body>
+  <div class="menu">
+    <ul>
+      <li><a href="./page4.html">返回</a></li>
+      <li><a href="./mg.html">美国纽约 “防鸟撞”法规</a></li>
+      <li><a href="./yg.html">英国 保护雨燕计划</a></li>
+      <li class="on"><a href="./nf.html">南非 机场为候鸟让路</a></li>
+    </ul>
+    <div class="mob-nav"><span></span></div>
+  </div>
+  <div style="height: 44px;">
+
+  </div>
+  <div class="container">
+
+    <div class="box2" style="padding-top: 20vw;">
+      <img src="./images/page4/8.png" style="margin: 0 !important;top: 0vw;" class="box2Bg" />
+
+      <div class="tit1">
+        南非 · 机场为候鸟让路
+      </div>
+
+      <div class="desc2">
+        南非一年四季温度适宜，是重要的候鸟迁徙中转站或目的地。在全球已知的8条候鸟迁徙路线中，有两条经过南非。每年有300万到500万只谷仓燕从北欧出发，长途跋涉抵达南非，在这里繁衍生息。莫里兰山一带是南非最大的谷仓燕迁徙目的地。
+      </div>
+
+
+      <div class="desc2">
+        而在距离湿地2.6公里的地方，坐落着南非三大最繁忙机场之一——沙卡国王国际机场，该机场每年客流量在500万至600万人次之间。为了减少对谷仓燕的影响，南非鸟类和环境保护协会在机场建设前开展了长达4年的谷仓燕行为习惯监测和机场可行性评估。确定了谷仓燕的来访时间、飞行习性等之后，机场选址才得以确定。
+      </div>
+
+      <div class="descItem">
+        <img src="./images/page4/b3.jpg" class="descImg" />
+        <div class="desc2">
+          同时，机场减少了谷仓燕出、回巢时段的航班数，并花费巨资安装雷达系统。如果有燕群与飞机同时进入航道，雷达会发出预警，飞机便可及时给燕群让路。机场还建造了减压坝以减少对湿地的破坏，并对噪声、有害垃圾进行严格监控。
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+  <script src="./js/jquery-1.12.4.min.js"></script>
+  <script>
+    $(".mob-nav").click(function () {
+      if ($(this).hasClass('on')) {
+        $(this).removeClass('on')
+        $('.menu ul').slideUp()
+      } else {
+        $(this).addClass('on')
+        $('.menu ul').slideDown()
+      }
+    })
+  </script>
+  <script src="js/aos.js"></script>
+  <script>AOS.init()</script>
+</body>
+
+</html>

@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jun Du (Eddy) | Digital Portfolio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #f0f0f0;
+            --accent: #ff4a00;
+            --font-display: 'Syne', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-zh: 'Noto Serif SC', 'Songti SC', serif;
+            
+            /* 3D Gallery Variables */
+            --item-width: 280px;
+            --item-height: 380px;
+        }
+
+        /* --- Bilingual Display Logic --- */
+        body.zh-mode .en { display: none !important; }
+        body:not(.zh-mode) .zh { display: none !important; }
+        
+        body.zh-mode {
+            font-family: var(--font-zh);
+        }
+
+        /* --- Reset & Base --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-display);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- Noise Texture --- */
+        .noise {
+            position: fixed;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            width: 200%; height: 200vh;
+            background: transparent url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+            animation: noise 0.2s infinite;
+        }
+
+        @keyframes noise {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+            100% { transform: translate(5%, 0); }
+        }
+
+        /* --- Custom Cursor --- */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 10000;
+            pointer-events: none;
+        }
+        .cursor-dot { width: 6px; height: 6px; background-color: var(--text-color); transition: opacity 0.3s; }
+        .cursor-outline {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .cursor-text {
+            font-family: var(--font-mono);
+            font-size: 10px; font-weight: 800; color: #fff;
+            opacity: 0; transition: opacity 0.3s;
+            position: absolute;
+        }
+        
+        /* Cursor Hover States */
+        .cursor-hover .cursor-outline {
+            width: 80px; height: 80px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: transparent; backdrop-filter: blur(2px);
+        }
+        .cursor-play .cursor-outline {
+            width: 90px; height: 90px;
+            background-color: var(--accent);
+            border-color: transparent; mix-blend-mode: normal;
+        }
+        .cursor-play .cursor-text { opacity: 1; }
+        .cursor-play .cursor-dot { opacity: 0; }
+
+        /* --- Preloader --- */
+        .preloader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 9000;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        .counter { font-family: var(--font-mono); font-size: 5vw; font-weight: 700; }
+        .loading-text {
+            font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase;
+            letter-spacing: 0.2em; margin-top: 20px; opacity: 0.5;
+        }
+
+        /* --- Navigation & UI Panel --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 2rem 4rem;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; mix-blend-mode: difference;
+        }
+        
+        /* 新增：包裹名字和语言按钮的容器 */
+        .nav-brand {
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; text-transform: uppercase; }
+        
+        /* 🌟 [近期新增功能]: 顶部导航栏样式 */
+        .nav-links {
+            display: flex; gap: 3rem; align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-color); text-decoration: none;
+            font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700;
+            text-transform: uppercase; position: relative; padding-bottom: 0.2rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; left: 0; bottom: 0;
+            width: 0; height: 1px; background: var(--text-color);
+            transition: width 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .lang-switch {
+            font-family: var(--font-mono);
+            font-size: 0.7rem; /* 字号调小 */
+            cursor: pointer;
+            text-transform: uppercase;
+            pointer-events: auto;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.3rem 0.6rem; /* 边距调小 */
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            white-space: nowrap; /* 保证文字不换行 */
+        }
+        .lang-switch:hover { background: #fff; color: #000; }
+
+        .ui-panel {
+            position: fixed; bottom: 40px; left: 40px; z-index: 1000;
+            pointer-events: none; display: flex; flex-direction: column;
+            color: #ffffff; font-family: var(--font-mono);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+        }
+        .ui-panel p { 
+            font-size: 1rem; 
+            font-weight: 700; 
+            line-height: 1.8; 
+            letter-spacing: 0.05em; 
+            opacity: 1; 
+        }
+        .ui-panel strong { 
+            font-weight: 900; 
+            color: var(--accent); 
+            margin-right: 0.5rem;
+        }
+
+        /* --- Hero Section & 3D Gallery --- */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; perspective: 2000px;
+        }
+        .hero-title-wrapper {
+            position: absolute; z-index: 0; pointer-events: none;
+            display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; opacity: 0.15;
+        }
+        .hero-title {
+            font-size: clamp(3rem, 12vw, 15rem); font-weight: 900; line-height: 0.85;
+            letter-spacing: -0.04em; text-transform: uppercase; white-space: nowrap;
+        }
+
+        /* 3D Core */
+        .world {
+            position: relative; transform-style: preserve-3d; z-index: 10;
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+            touch-action: pan-y; 
+        }
+        .world:active { cursor: none; }
+        .model-center { position: absolute; transform-style: preserve-3d; }
+        .item {
+            position: absolute; top: calc(var(--item-height) / -2); left: calc(var(--item-width) / -2);
+            width: var(--item-width); height: var(--item-height);
+            transform-origin: center center; overflow: visible;
+            transition: filter 0.4s ease, transform 3s cubic-bezier(0.25, 1, 0.5, 1);
+            filter: brightness(0.85); 
+        }
+        .item.hover-target { pointer-events: auto; }
+        .item:hover {
+            filter: brightness(1.1); 
+            z-index: 100;
+        }
+        .item-content {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            border-radius: 4px; overflow: hidden;
+            background-color: #111;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            transition: all 0.7s cubic-bezier(0.4, -0.2, 0.2, 1);
+            transform-origin: center center;
+        }
+        .item:hover .item-content {
+            box-shadow: 0 20px 60px rgba(255, 74, 0, 0.3), 0 0 20px rgba(255,255,255,0.15);
+        }
+        .item.is-landscape:hover .item-content {
+            width: calc(var(--item-height) * 1.35);
+            height: calc((var(--item-height) * 1.35) / var(--img-ratio, 16/9));
+            left: calc((var(--item-width) - (var(--item-height) * 1.35)) / 2);
+            top: calc((var(--item-height) - ((var(--item-height) * 1.35) / var(--img-ratio, 16/9))) / 2);
+        }
+        .item.is-portrait:hover .item-content {
+            transform: scale(1.12);
+        }
+        .item-content img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; display: block; transition: all 0.7s cubic-bezier(0.4, -0.2, 0.2, 1); }
+        .item-content .project-title {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.4), transparent); color: #fff;
+            font-family: var(--font-mono); font-size: 1.4rem; font-weight: 800; text-transform: uppercase;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            transform: translateY(100%); transition: transform 0.4s ease;
+        }
+        .item:hover .project-title { transform: translateY(0); }
+
+        /* --- Scroll Indicator --- */
+        .scroll-indicator {
+            position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase;
+            letter-spacing: 0.2em; display: flex; flex-direction: column; align-items: center;
+            gap: 10px; opacity: 0; z-index: 100; mix-blend-mode: difference;
+        }
+        .scroll-line { width: 1px; height: 50px; background: rgba(255,255,255,0.2); position: relative; overflow: hidden; }
+        .scroll-line::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+            background: #fff; animation: scrollLine 2s infinite ease-in-out;
+        }
+        @keyframes scrollLine { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+
+        /* --- Manifesto Section --- */
+        .manifesto {
+            min-height: 50vh; display: flex; align-items: center; padding: 10rem 4rem;
+            background-color: transparent; position: relative; z-index: 10;
+        }
+        .manifesto-text {
+            font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 600; line-height: 1.3;
+            max-width: 1200px; margin: 0 auto; text-align: center;
+        }
+
+        /* --- Sticky Experience Section --- */
+        .experience {
+            position: relative; background: transparent; display: flex;
+            padding: 5rem 4rem; gap: 4rem; z-index: 10;
+        }
+        .exp-left { width: 40%; position: relative; }
+        .exp-sticky { position: sticky; top: 30vh; }
+        .exp-title { font-size: clamp(3rem, 6vw, 6rem); font-weight: 800; line-height: 1; text-transform: uppercase; }
+        .exp-right { width: 60%; display: flex; flex-direction: column; gap: 15rem; padding-top: 10vh; padding-bottom: 20vh; }
+        
+        .exp-card {
+            background: #111; padding: 3rem; border: 1px solid rgba(255,255,255,0.05);
+            transition: border-color 0.3s ease; position: relative;
+        }
+        .exp-card:hover { border-color: rgba(255,255,255,0.2); }
+        .exp-date { font-family: var(--font-mono); color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; }
+        .exp-company { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .exp-role { font-family: var(--font-mono); font-size: 1rem; opacity: 0.7; margin-bottom: 2rem; border-bottom: 1px solid #333; padding-bottom: 1rem; }
+        .exp-details { font-size: 1.1rem; line-height: 1.6; opacity: 0.9; }
+        .exp-details li { margin-bottom: 0.8rem; margin-left: 1.5rem; }
+
+        /* --- Marquee --- */
+        .marquee-wrapper {
+            padding: 1.5rem 0; background: var(--accent); color: var(--bg-color);
+            overflow: hidden; white-space: nowrap; position: relative; z-index: 10;
+        }
+        .marquee { display: inline-block; font-size: 2.5vw; font-weight: 800; text-transform: uppercase; animation: marquee 15s linear infinite; }
+        .marquee span { padding: 0 2rem; font-family: var(--font-mono); font-weight: 800; font-size: 1.5vw; vertical-align: middle; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- Fancy Video Showcase (Horizontal Scroll) --- */
+        .video-showcase {
+            height: 100vh; overflow: hidden; background: transparent;
+            display: flex; align-items: center; position: relative; z-index: 10;
+        }
+        .video-header {
+            position: absolute; left: 4rem; z-index: 20; pointer-events: none; mix-blend-mode: difference;
+        }
+        .video-track {
+            display: flex; gap: 4rem; padding-left: 40vw; padding-right: 15vw;
+            width: max-content; align-items: center;
+        }
+        
+        .video-item {
+            position: relative; overflow: hidden;
+            background: #111; flex-shrink: 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border-radius: 4px;
+        }
+
+        /* 🌟 [近期新增功能]: 横竖屏动态画幅比例控制 */
+        .video-item.landscape { width: min(46vw, 820px); aspect-ratio: 16 / 9; }
+        .video-item.portrait { width: calc(60vh * 9 / 16); }
+        
+        .video-item video {
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.5; filter: grayscale(100%);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: scale(1.05);
+        }
+        .video-item:hover video {
+            opacity: 1; filter: grayscale(0%); transform: scale(1);
+        }
+        .video-info {
+            position: absolute; bottom: 2rem; left: 2rem; z-index: 2;
+            font-family: var(--font-mono); pointer-events: none;
+            text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            transform: translateY(20px); opacity: 0;
+            transition: all 0.4s ease;
+            width: calc(100% - 4rem);
+        }
+        .video-item:hover .video-info { transform: translateY(0); opacity: 1; }
+        .video-info h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; font-family: var(--font-display); }
+        .video-item.portrait .video-info h3 { font-size: 1.5rem; } 
+        .video-info p { font-size: 0.9rem; color: var(--accent); font-weight: 700; }
+
+        /* 🌟 [近期新增功能]: 悬浮视频进度条样式 (新增支持自由调节) */
+        .video-progress {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 6px; /* 进度条初始高度 */
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 10; opacity: 0;
+            transition: opacity 0.3s ease, height 0.2s ease;
+            cursor: pointer; /* 提示可点击调节 */
+        }
+        .video-item:hover .video-progress { opacity: 1; }
+        .video-progress:hover { height: 12px; } /* 鼠标放在进度条上时变粗，方便精准点击 */
+        
+        .video-progress-fill {
+            height: 100%; width: 0%;
+            background: var(--accent);
+            transition: width 0.1s linear;
+            pointer-events: none; /* 确保点击精确落在外层容器上 */
+        }
+
+        /* --- UI Design Showcase --- */
+        .ui-showcase {
+            height: 100vh;
+            display: flex; align-items: center; position: relative; overflow: hidden;
+            background: transparent; perspective: 1800px;
+        }
+        .ui-header {
+            position: absolute; left: 4rem; top: 15%; z-index: 20;
+            pointer-events: none; mix-blend-mode: difference;
+        }
+        .ui-header h2 { 
+            font-size: clamp(2.5rem, 5vw, 6rem); 
+            font-weight: 900; line-height: 0.9; text-transform: uppercase; color: #fff; 
+        }
+        .ui-track {
+            display: flex; align-items: center; gap: clamp(2rem, 5vw, 6rem); 
+            padding: 0 45vw; /* large padding to start centered on first */
+            height: 100%; will-change: transform; transform-style: preserve-3d;
+        }
+        .ui-card {
+            width: calc(60vh * 9 / 16); 
+            aspect-ratio: 9/16;
+            border-radius: 20px; overflow: hidden; flex-shrink: 0;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9); background: #111; 
+            will-change: transform, opacity; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .ui-card img { 
+            width: 100%; height: 100%; 
+            object-fit: contain; 
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .ui-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- Selected Projects Parallax & Fancy Hover --- */
+        .projects { padding: 10rem 0; background: transparent; position: relative; z-index: 10; }
+        .section-header { padding: 0 4rem; margin-bottom: 5rem; }
+        
+        .project-block {
+            height: 100vh; width: 100%; position: relative; overflow: hidden; margin-bottom: 2rem;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; 
+        }
+        .project-block[id] { scroll-margin-top: 110px; }
+        .project-img-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            clip-path: polygon(10% 0, 90% 0, 90% 100%, 10% 100%);
+            transition: clip-path 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .project-block:hover .project-img-container { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        .project-img {
+            width: 100%; height: 130%; object-fit: cover;
+            position: absolute; top: -15%; filter: brightness(0.4);
+            transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), filter 0.8s ease;
+        }
+        .project-block:hover .project-img { transform: scale(1.05); filter: brightness(0.25); }
+        
+        .project-content {
+            position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 2rem;
+            pointer-events: none; display: flex; flex-direction: column; align-items: center;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .project-block:hover .project-content { transform: translateY(-20px); }
+        .project-name { 
+            font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; text-transform: uppercase; margin-bottom: 0; 
+            transition: margin 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+        .project-block:hover .project-name { margin-bottom: 1.5rem; transform: scale(1.02); text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .project-details-wrapper {
+            display: grid; grid-template-rows: 0fr; 
+            transition: grid-template-rows 0.8s cubic-bezier(0.19, 1, 0.22, 1); width: 100%;
+        }
+        .project-block:hover .project-details-wrapper { grid-template-rows: 1fr; }
+        .project-details {
+            overflow: hidden; opacity: 0; transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); 
+            font-family: var(--font-mono); font-size: 1.2rem; line-height: 1.6;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .project-block:hover .project-details { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+        
+        .project-action {
+            margin-top: 2.5rem; display: inline-flex; justify-content: center; align-items: center;
+            font-family: var(--font-mono); font-size: 0.95rem; font-weight: 700; 
+            color: var(--bg-color); background-color: var(--text-color);
+            text-transform: uppercase; padding: 1rem 3rem; border-radius: 50px;
+            text-decoration: none;
+            pointer-events: auto;
+            position: relative;
+            z-index: 3;
+            opacity: 0; transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .project-block:hover .project-action { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+        .project-block:active .project-action { transform: scale(0.95); }
+
+        /* --- Footer (Education & Skills) --- */
+        footer {
+            min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; background-color: transparent; z-index: 10; padding: 5rem 4rem;
+        }
+        .edu-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; width: 100%; margin-bottom: 6rem; }
+        .footer-col h3 { font-size: 2rem; margin-bottom: 2rem; text-transform: uppercase; border-bottom: 1px solid #333; padding-bottom: 1rem; }
+        .edu-item { margin-bottom: 2rem; }
+        .edu-item h4 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .edu-item p { font-family: var(--font-mono); opacity: 0.7; font-size: 0.9rem; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 1rem; }
+        
+        .skill-tag { 
+            border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 20px; 
+            font-family: var(--font-mono); font-size: 0.85rem; 
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+        .skill-tag:hover {
+            transform: scale(1.1); background-color: rgba(255, 74, 0, 0.15); border-color: var(--accent); color: #fff;
+        }
+        
+        .footer-bottom {
+            position: absolute; bottom: 2rem; width: 100%; display: flex; justify-content: space-between;
+            padding: 0 4rem; font-family: var(--font-mono); font-size: 0.8rem; opacity: 0.5; text-transform: uppercase;
+        }
+
+        /* --- AI Assistant Modal --- */
+        @keyframes aiPulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.15); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+        .ai-fab {
+            position: fixed; bottom: 40px; right: 40px; z-index: 1000;
+            width: 45px; height: 45px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2); color: var(--text-color);
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            font-family: var(--font-mono); font-size: 1.2rem; line-height: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); animation: aiPulse 3s infinite;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+        .ai-fab:hover { 
+            transform: scale(1.1) rotate(90deg); background: rgba(255, 74, 0, 0.1); 
+            border-color: var(--accent); color: var(--accent); 
+            animation: none; box-shadow: 0 0 20px rgba(255, 74, 0, 0.2);
+        }
+        
+        .ai-modal {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(5,5,5,0.8); backdrop-filter: blur(10px);
+            z-index: 10001; display: flex; justify-content: flex-end;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .ai-modal.active { opacity: 1; pointer-events: auto; }
+        
+        .ai-sidebar {
+            width: 100%; max-width: 450px; height: 100%; background: #111;
+            border-left: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .ai-modal.active .ai-sidebar { transform: translateX(0); }
+        
+        .ai-header {
+            padding: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;
+        }
+        .ai-header h3 { font-family: var(--font-display); font-size: 1.5rem; }
+        .ai-close { font-family: var(--font-mono); cursor: pointer; opacity: 0.6; transition: opacity 0.3s; }
+        .ai-close:hover { opacity: 1; }
+        
+        .ai-chat-area {
+            flex: 1; padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem;
+            font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.6;
+        }
+        .chat-msg { max-width: 85%; padding: 1rem; border-radius: 10px; word-wrap: break-word; }
+        .chat-msg.user { background: rgba(255,255,255,0.1); align-self: flex-end; border-bottom-right-radius: 0; }
+        .chat-msg.ai { background: rgba(255, 74, 0, 0.15); align-self: flex-start; border-bottom-left-radius: 0; border: 1px solid rgba(255, 74, 0, 0.3); }
+        .ai-typing { padding: 0 2rem 1rem; font-style: italic; opacity: 0.5; font-size: 0.8rem; font-family: var(--font-mono); display: none; }
+        
+        .ai-input-area {
+            padding: 1.5rem 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 1rem; background: #0a0a0a;
+        }
+        .ai-input {
+            flex: 1; background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 1rem; outline: none;
+        }
+        .ai-send {
+            background: none; border: none; color: var(--accent); font-family: var(--font-mono); font-weight: 700; cursor: pointer; text-transform: uppercase; transition: opacity 0.3s;
+        }
+        .ai-send:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            :root { --item-width: 140px; --item-height: 200px; } 
+            nav { padding: 1.5rem; flex-direction: row; justify-content: space-between; }
+            .nav-brand { gap: 0.5rem; } /* 移动端缩小名字和按钮的间距 */
+            .logo { font-size: 1.1rem; }
+            .nav-links { display: none; } /* 移动端隐藏导航链接以保持极简留白 */
+            .lang-switch { font-size: 0.6rem; padding: 0.2rem 0.4rem; } /* 移动端进一步缩减字号 */
+            
+            .ui-panel { left: 1rem; bottom: 1rem; }
+            .ui-panel p { font-size: 0.8rem; line-height: 1.5; }
+            .ui-panel strong { font-size: 0.9rem; }
+            
+            .hero-title { font-size: 15vw; }
+            
+            .experience { flex-direction: column; padding: 4rem 1.5rem; gap: 2rem; }
+            .exp-left { width: 100%; }
+            .exp-sticky { position: relative; top: 0; margin-bottom: 2rem; }
+            .exp-title { font-size: 2.5rem; }
+            .exp-right { width: 100%; padding-top: 0; gap: 3rem; }
+            .exp-company { font-size: 1.8rem; }
+            .exp-card { padding: 2rem 1.5rem; }
+            
+            .video-showcase { height: auto; flex-direction: column; padding: 5rem 0; }
+            .video-header { position: relative; left: 1.5rem; margin-bottom: 2rem; mix-blend-mode: normal; }
+            .video-track { padding: 0 1.5rem; flex-direction: column; width: 100%; height: auto; gap: 2rem; }
+            
+            /* 🌟 [近期新增功能]: 移动端的视频画幅自适应 */
+            .video-item.landscape { width: 100%; height: auto; aspect-ratio: 16/9; }
+            .video-item.portrait { width: 80%; margin: 0 auto; height: auto; aspect-ratio: 9/16; }
+            
+            .video-item video { opacity: 0.8; filter: grayscale(0%); transform: scale(1); }
+            .video-info { transform: translateY(0); opacity: 1; bottom: 1rem; left: 1rem; width: calc(100% - 2rem); padding: 1rem; }
+            .video-info h3 { font-size: 1.2rem; }
+            .video-progress { opacity: 1; height: 6px; } /* 移动端常驻显示进度条 */
+            
+            .ui-header h2 { font-size: clamp(2rem, 10vw, 3.5rem); }
+            .ui-track { padding: 4rem 1.5rem; gap: 2rem; flex-direction: column; width: 100%; align-items: center; }
+            .ui-card { width: 80%; height: auto; aspect-ratio: 9/16; margin-bottom: 2rem; transform: none !important; opacity: 1 !important; filter: none !important; }
+            .ui-card img { object-fit: contain; }
+            .ui-header { position: relative; top: 0; left: 1.5rem; margin-bottom: 2rem; mix-blend-mode: normal; }
+            .ui-showcase { height: auto; display: block; perspective: none; }
+
+            .projects { padding: 4rem 0; }
+            .section-header { padding: 0 1.5rem; margin-bottom: 3rem; }
+            .project-block { height: auto; min-height: 70vh; padding: 3rem 1.5rem; margin-bottom: 1rem; }
+            .project-img-container { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); border-radius: 12px; }
+            .project-img { filter: brightness(0.25); transform: scale(1.05); }
+            .project-content { transform: translateY(0); padding: 1rem; }
+            .project-name { font-size: 2rem; margin-bottom: 1rem; }
+            .project-details-wrapper { grid-template-rows: 1fr; }
+            .project-details { opacity: 1; transform: translateY(0); font-size: 0.95rem; }
+            .project-action { opacity: 1; transform: translateY(0); margin-top: 1.5rem; padding: 0.8rem 2rem; }
+            
+            .edu-skills-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .footer-col h3 { font-size: 1.5rem; }
+            footer { padding: 4rem 1.5rem; }
+            .footer-bottom { position: relative; bottom: 0; padding: 0; flex-direction: column; gap: 1rem; text-align: center; margin-top: 3rem; }
+            
+            .ai-fab { bottom: 1rem; right: 1rem; width: 40px; height: 40px; font-size: 1rem; }
+            .ai-sidebar { max-width: 100%; }
+            
+            .cursor-dot, .cursor-outline { display: none; } 
+            * { cursor: auto !important; }
+        }
+    </style>
+</head>
+<body class="zh-mode">
+
+    <!-- Noise Overlay -->
+    <div class="noise"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline">
+        <div class="cursor-text">PLAY</div>
+    </div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="counter">0%</div>
+        <div class="loading-text">
+            <span class="en">Compiling Portfolio</span>
+            <span class="zh">正在构建作品集</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-brand">
+            <div class="logo">
+                <span class="en">Jun Du // Eddy</span>
+                <span class="zh">杜珺 // Jun Du</span>
+            </div>
+            <!-- 将语言切换键移动至 logo 旁边 -->
+            <div class="lang-switch hover-target" id="lang-toggle">[ EN / 中文 ]</div>
+        </div>
+
+        <!-- 🌟 [近期新增功能]: 顶部双语导航栏 -->
+        <div class="nav-links">
+            <a href="#experience" class="hover-target">
+                <span class="en">Experience</span><span class="zh">工作经历</span>
+            </a>
+            <a href="#video-section" class="hover-target">
+                <span class="en">Reels</span><span class="zh">剪辑作品</span>
+            </a>
+            <a href="#ui-section" class="hover-target">
+                <span class="en">UI Design</span><span class="zh">UI设计</span>
+            </a>
+            <a href="#projects-section" class="hover-target">
+                <span class="en">Projects</span><span class="zh">项目经历</span>
+            </a>
+            <a href="#info-section" class="hover-target">
+                <span class="en">Info</span><span class="zh">信息</span>
+            </a>
+        </div>
+    </nav>
+    
+    <!-- Floating Info Panel -->
+    <div class="ui-panel">
+        <p><strong>HK TEL</strong> // +852 4683 0262</p>
+        <p><strong>CN TEL</strong> // +86 137 1670 4305</p>
+        <p><strong>MAIL</strong> // dj03072023@163.com</p>
+    </div>
+
+    <!-- Main Content Wrapper for Smooth Scroll -->
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- Hero Section: 3D Gallery -->
+            <section class="hero">
+                <div class="hero-title-wrapper">
+                    <div class="hero-title">
+                        <span class="en">VISUAL & VIDEO</span>
+                        <span class="zh">视觉与影像</span>
+                    </div>
+                    <div class="hero-title">
+                        <span class="en">ARCHIVE</span>
+                        <span class="zh">创意档案</span>
+                    </div>
+                </div>
+                
+                <div class="world hover-target" id="world">
+                    <div class="model-center" id="model"></div>
+                </div>
+
+                <div class="scroll-indicator">
+                    <span class="en">Discover</span><span class="zh">向下探索</span>
+                    <div class="scroll-line"></div>
+                </div>
+            </section>
+
+            <!-- Manifesto Section -->
+            <section class="manifesto">
+                <p class="manifesto-text">
+                    <span class="en">A DATA-DRIVEN CONTENT STRATEGIST & INTERACTIVE MEDIA CREATOR. BRIDGING THE GAP BETWEEN UX RESEARCH, DIGITAL MARKETING, AND HIGH-IMPACT VISUAL STORYTELLING.</span>
+                    <span class="zh">数据驱动的内容策略师与互动媒体创作者。致力于在用户体验、数字营销与极具视觉冲击力的故事讲述之间建立完美桥梁。</span>
+                </p>
+            </section>
+
+            <!-- Experience Parallax Section -->
+            <!-- 🌟 [近期新增功能]: 添加 id 以供导航跳转 -->
+            <section class="experience" id="experience">
+                <div class="exp-left">
+                    <div class="exp-sticky">
+                        <h2 class="exp-title">
+                            <span class="en">WORK<br>EXPERIENCE</span>
+                            <span class="zh">职业<br>经历</span>
+                        </h2>
+                    </div>
+                </div>
+                
+                <div class="exp-right">
+                    <!-- Caixin -->
+                    <div class="exp-card hover-target parallax-card">
+                        <div class="exp-date">Aug 2024 - Mar 2025</div>
+                        <h3 class="exp-company">
+                            <span class="en">Caixin Media</span><span class="zh">财新传媒</span>
+                        </h3>
+                        <div class="exp-role">
+                            <span class="en">Financial New Media Ops Specialist</span><span class="zh">财经新媒体运营专员</span>
+                        </div>
+                        <ul class="exp-details">
+                            <li class="en"><strong>Optimized Content Presentation:</strong> Leveraged visual storytelling to lower the cognitive barrier for complex financial data on TikTok, significantly improving read rate and UX, producing 5 viral videos with over 10K likes.</li>
+                            <li class="en"><strong>Established Rapid Response Mechanism:</strong> Built video templates for breaking market trends, ensuring hot news shorts were published within 1 hour with >65% coverage rate, reducing production costs and gaining 1000+ new followers weekly.</li>
+                            <li class="zh"><strong>优化内容呈现方式：</strong>针对抖音平台特点与用户痛点，利用可视化思维重构复杂财经新闻数据，大幅提升内容可读性与用户体验，成功打造5条点赞破万短视频。</li>
+                            <li class="zh"><strong>建立快速响应机制：</strong>制作突发要闻视频快速响应模板，确保突发短视频能够在1小时内上线并实现覆盖率突破65%，有效降低生产成本并大幅提升运营效率，实现单周净增粉1000+。</li>
+                        </ul>
+                    </div>
+
+                    <!-- Perfect World -->
+                    <div class="exp-card hover-target parallax-card">
+                        <div class="exp-date">Mar 2024 - Jul 2024</div>
+                        <h3 class="exp-company">
+                            <span class="en">Perfect World Hongen</span><span class="zh">完美世界洪恩教育科技有限公司</span>
+                        </h3>
+                        <div class="exp-role">
+                            <span class="en">Content Operations Intern</span><span class="zh">内容运营实习生</span>
+                        </div>
+                        <ul class="exp-details">
+                            <li class="en"><strong>Content Planning & Channel Expansion:</strong> Managed official Xiaohongshu (RED) accounts. Produced core columns like "Idiom Origins" and led KOL outreach.</li>
+                            <li class="en"><strong>Data-Driven Strategy Iteration:</strong> A/B tested content and interactive copy to boost engagement rate by 30%, generating 3 viral posts with over 10K likes.</li>
+                            <li class="en"><strong>Private Domain funnel & VOC:</strong> Directed public traffic to a 2000+ highly active private community. Formulated VOC feedback loop to relay user demands to R&D, continuously optimizing products.</li>
+                            <li class="zh"><strong>账号内容策划与营销渠道拓展：</strong>负责官方小红书日常运营与推广。策划并落地“成语溯源”与“知识科普”等栏目，撰写文案与剪辑视频，积极拓展中腰部KOL资源。</li>
+                            <li class="zh"><strong>基于数据监控推动策略迭代：</strong>建立精细化内容测试机制，多轮迭代测试内容与互动文案，促使平均互动率增加30%，期间打造出3篇点赞破万爆款笔记。</li>
+                            <li class="zh"><strong>搭建私域转化与用户反馈闭环：</strong>将公域流量精准引导并沉淀至2000+人的高活跃私域社群。建立VOC机制，定期收集并提炼用户需求反馈至研发团队，推动产品功能迭代。</li>
+                        </ul>
+                    </div>
+
+                    <!-- Xiaomi -->
+                    <div class="exp-card hover-target parallax-card">
+                        <div class="exp-date">Aug 2022 - Mar 2023</div>
+                        <h3 class="exp-company">
+                            <span class="en">Xiaomi</span><span class="zh">小米移动软件有限公司</span>
+                        </h3>
+                        <div class="exp-role">
+                            <span class="en">Mi Game Center Content Ops Intern</span><span class="zh">小米游戏中心内容运营实习生</span>
+                        </div>
+                        <ul class="exp-details">
+                            <li class="en"><strong>End-to-End Ops & Synergy:</strong> Led the "Game Five-Day Talk" column. Coordinated closely with game developers and internal design teams to ensure high-quality content delivery.</li>
+                            <li class="en"><strong>Data System & Optimization:</strong> Built a "Read-Share-Convert" metrics dashboard. Analyzed behavior to refine push strategies, surging dwell time by 250% and MoM UV by 37%.</li>
+                            <li class="en"><strong>SOP Standardization:</strong> Identified workflow pain points and built content SOPs from scratch. Published the "Creative Guideline," boosting design/ops collaboration efficiency by 60%.</li>
+                            <li class="zh"><strong>全链路运营与跨部门协同推进：</strong>独立负责“游戏五日谈”专栏的整体运营，准确向内部设计团队输出需求。对外与厂商紧密沟通，保障内容高质交付与迭代。</li>
+                            <li class="zh"><strong>构建数据体系与策略优化：</strong>搭建“阅读-分享-转化”数据监控体系。追踪分析用户留存点击行为，制定精准Push策略，成功将平均停留时长提升250%，带动UV环比提升37%。</li>
+                            <li class="zh"><strong>沉淀总结标准化SOP：</strong>从0到1搭建资讯板块SOP，梳理输出《游戏内容创作指南》，有效降低沟通成本，推动联运与设计跨部门协作效率提升60%。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Marquee Divider -->
+            <div class="marquee-wrapper">
+                <div class="marquee">
+                    <span class="en">CONTENT STRATEGY // DATA ANALYSIS // UX RESEARCH // DIGITAL MARKETING //</span>
+                    <span class="zh">内容策略 // 数据分析 // 用户体验研究 // 数字营销 //</span>
+                    <span class="en">CONTENT STRATEGY // DATA ANALYSIS // UX RESEARCH // DIGITAL MARKETING //</span>
+                    <span class="zh">内容策略 // 数据分析 // 用户体验研究 // 数字营销 //</span>
+                </div>
+            </div>
+
+
+            <!-- Fancy Video Showcase -->
+            <section class="video-showcase" id="video-section">
+                <div class="video-header">
+                    <h2 class="exp-title">
+                        <span class="en">Video</span>
+                        <span class="zh">影像与<br>剪辑作品</span>
+                    </h2>
+                </div>
+
+                <div class="video-track">
+                    <div class="video-item landscape hover-play">
+                        <video loop playsinline poster="pic/mars.jpg">
+                            <source src="video/mars.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">SpaceX Mars concept film</span><span class="zh">SpaceX火星概念片</span></h3>
+                            <p><span class="en">A speculative visual narrative imagining future life, technology, and human resilience on the red planet.</span><span class="zh">以视觉叙事想象人类未来在火星的生存、科技与探索精神。</span></p>
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item landscape hover-play">
+                        <video loop playsinline poster="pic/rice.jpg">
+                            <source src="video/rice.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">Egg fried rice</span><span class="zh">蛋炒饭</span></h3>
+                            <p><span class="en">A warm food short that captures everyday craft, aroma, and the emotional memory of home cooking.</span><span class="zh">以生活化镜头记录家常烹饪的细节、香气与情感温度。</span></p>
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item landscape hover-play">
+                        <video loop playsinline poster="pic/cat.jpg">
+                            <source src="video/dog.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">Where lies peace</span><span class="zh">何以为安</span></h3>
+                            <p><span class="en">A documentary interviewing two women dedicated to rescuing strays, authentically reflecting the current dilemmas surrounding animal rescue and adoption.</span><span class="zh">纪录片采访了两位倾尽全力救助流浪动物的阿姨，真实反映了现在流浪动物救助和领养的困境。</span></p>
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item landscape hover-play">
+                        <video loop playsinline poster="pic/news.jpg">
+                            <source src="video/news.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">News clip opening template</span><span class="zh">新闻短片片头模板</span></h3>
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item landscape hover-play">
+                        <video loop playsinline poster="pic/rain (2).jpg">
+                            <source src="video/rain.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">Rainy days</span><span class="zh">下雨天是我在想你</span></h3>
+                            <p><span class="en">A music video telling the regretful story of two girls who were inseparable during their school days but eventually drifted apart over time.</span><span class="zh">歌曲MV讲述了两个女孩从读书时的亲密无间最终却随时间陌路的遗憾故事</span></p>
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item portrait hover-play">
+                        <video loop playsinline poster="pic/winter.jpg">
+                            <source src="video/winter.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">The 24 Solar Terms</span><span class="zh">二十四节气</span></h3>
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item portrait hover-play">
+                        <video loop playsinline poster="pic/us.jpg">
+                            <source src="video/news1.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">Tariff Watch</span><span class="zh">关税观察</span></h3>
+                          
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item portrait hover-play">
+                        <video loop playsinline poster="pic/edu.jpg">
+                            <source src="video/news2.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">Educational observation</span><span class="zh">教育观察</span></h3>
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="video-item portrait hover-play">
+                        <video loop playsinline poster="pic/money.jpg">
+                            <source src="video/news3.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3><span class="en">Financial science popularization</span><span class="zh">财经科普</span></h3>
+                            
+                        </div>
+                        <div class="video-progress">
+                            <div class="video-progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UI Design Showcase -->
+            <section class="ui-showcase" id="ui-section">
+                <div class="ui-header">
+                    <h2 class="exp-title">
+                        <span class="en">UI DESIGN<br>SHOWCASE</span>
+                        <span class="zh">UI 设计<br>展示</span>
+                    </h2>
+                </div>
+                <div class="ui-track">
+                    <div class="ui-card hover-target"><img src="pic/UI/主页.jpg" alt="UI Home"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/主页1.3.jpg" alt="UI Home 1.3"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/主页4.jpg" alt="UI Home 4"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/主页5.jpg" alt="UI Home 5"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/主页6.jpg" alt="UI Home 6"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/听故事.jpg" alt="听故事"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/悬鱼.jpg" alt="悬鱼"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/主页1.jpg" alt="UI Home 1"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/故宫.jpg" alt="故宫"></div>
+                    <div class="ui-card hover-target"><img src="pic/UI/赏建筑.jpg" alt="赏建筑"></div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="projects" id="projects-section">
+                <div class="section-header">
+                    <h2 class="exp-title">
+                        <span class="en">SELECTED<br>PROJECTS</span>
+                        <span class="zh">项目展示</span>
+                    </h2>
+                </div>
+
+                <!-- Project 4 (New) -->
+                <div class="project-block hover-target" id="project-oopsie" onclick="window.open('Oopsie.html', '_blank')">
+                    <div class="project-img-container">
+                        <img class="project-img" src="pic/OopsieAdults_Cover_16x9.png" alt="Oopsie Adults pop art cover">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">
+                            <span class="en">Oopsie Adults</span>
+                            <span class="zh">初级大人</span>
+                        </h3>
+                        <div class="project-details-wrapper">
+                            <div class="project-details">
+                                <span class="en">Unpredictable minor mistakes (Oopsies)—such as forgetting items or misjudging time—continuously drain our energy and emotional resources. Oopsie Adults serves as the "safety net that catches your hectic life."</span>
+                                <span class="zh">物品遗漏、时间预估偏差等难以预期的小失误（Oopsie），持续消耗着个体的精力与情绪资源。Oopsie Adults就是“接住手忙脚乱的生活安全网”。</span>
+                                <div class="project-action">
+                                    <span class="en">Explore Project ↗</span>
+                                    <span class="zh">探索项目 ↗</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 1 -->
+                <div class="project-block hover-target" id="project-bird" onclick="window.open('birdSite/index.html', '_blank')">
+                    <div class="project-img-container">
+                        <img class="project-img" src="pic/bird.jpg" alt="Data Visualization">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">
+                            <span class="en">Beijing Bird Ecology</span>
+                            <span class="zh"><h3>北京鸟类生态</h3>数据可视化网页新闻</span>
+                        </h3>
+                        <div class="project-details-wrapper">
+                            <div class="project-details">
+                                <span class="en">Built an interactive data journalism website using Python (Pandas) and HTML5/CSS3. Innovated a "soundscape visualization" module to integrate auditory data.</span>
+                                <span class="zh">使用 Python (Pandas) 和 HTML5/CSS3 构建互动数据新闻网站。创新性开发“声景可视化”模块，突破传统静态图表的感官限制。</span>
+                                <a class="project-action" href="birdSite/index.html" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                                    <span class="en">Explore Project ↗</span>
+                                    <span class="zh">探索项目 ↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- Project 1.1 -->
+                <div class="project-block hover-target" id="project-tuorui" onclick="window.open('tuorui/index.html', '_blank')">
+                    <div class="project-img-container">
+                        <img class="project-img" src="pic/tuorui.jpg" alt="Data Visualization">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">
+                            <span class="en">I didn’t mean to</span>
+                            <span class="zh"><h3>我不是故意的</h3>妥瑞氏症患者纪实</span>
+                        </h3>
+                        <div class="project-details-wrapper">
+                            <div class="project-details">
+                                <span class="en">An interactive data journalism project documenting the genuine survival realities of Tourette's syndrome patients. By integrating empathetic interviews and multi-dimensional web data visualization, it aims to break public stereotypes and foster social empathy.</span>
+                                <span class="zh">一部聚焦妥瑞氏症患者真实生存现状的互动式网页数据新闻。通过极具同理心的深度访谈与多维网页数据可视化设计，打破公众对该群体的刻板印象，呼吁更多的社会理解与包容。</span>
+                                <a class="project-action" href="tuorui/index.html" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                                    <span class="en">Explore Project ↗</span>
+                                    <span class="zh">探索项目 ↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-block hover-target" id="project-yingyou" onclick="window.open('movie/ppt2-scroll.html', '_blank')">
+                    <div class="project-img-container">
+                        <img class="project-img" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2000&auto=format&fit=crop" alt="Film App">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">
+                            <span class="en">"Ying You Jin You" App</span>
+                            <span class="zh">票房预测与电影推荐App<br>影有尽有</span>
+                        </h3>
+                        <div class="project-details-wrapper">
+                            <div class="project-details">
+                                <span class="en">Targeting the pain points of inaccurate movie recommendations and opaque box office data, established core features including AI box office prediction, a movie community, and curated recommendations. Defined a B2B business model for AI box office forecasting and a B2C model featuring precision recommendations via knowledge graphs and a closed social loop. Conducted in-depth PEST and SWOT market analyses to successfully capture the blank space in the box office prediction market.</span>
+                                <span class="zh">针对用户难以获得完美契合口味的电影推荐和电影票房不透明的痛点，确立产品预测票房、电影社区与佳片推荐等核心功能。确立B端提供AI票房预测服务、C端提供知识图谱精准推荐及社交闭环的商业模式。独立完成详尽的市场PEST分析及SWOT分析，精准切入票房预测领域的市场空白。</span>
+                                <a class="project-action" href="movie/ppt2-scroll.html" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                                    <span class="en">Explore Project ↗</span>
+                                    <span class="zh">探索项目 ↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-block hover-target" id="project-subway" onclick="window.open('subway/ppt-scroll.html', '_blank')">
+                    <div class="project-img-container">
+                        <img class="project-img" src="pic/sub.jpg" alt="Board Game">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-name">
+                            <span class="en">"Subway to Spring"</span>
+                            <span class="zh">开往春天的地铁</span>
+                        </h3>
+                        <div class="project-details-wrapper">
+                            <div class="project-details">
+                                <span class="en">Led promotion strategy for a subway-themed board game, attracting 200+ participants. Managed copywriting and visuals to build an O2O marketing loop.</span>
+                                <span class="zh">主导地铁主题桌游的推广策略，吸引超200名玩家参与。统筹文案与视觉设计，成功构建O2O营销闭环，验证市场潜力。</span>
+                                <a class="project-action" href="subway/ppt-scroll.html" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                                    <span class="en">Explore Project ↗</span>
+                                    <span class="zh">探索项目 ↗</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Footer (Edu & Skills) -->
+            <footer id="info-section">
+                <div class="edu-skills-grid">
+                    <div class="footer-col">
+                        <h3><span class="en">Education</span><span class="zh">教育背景</span></h3>
+                        <div class="edu-item">
+                            <h4><span class="en">Hong Kong Baptist University (HKBU)</span><span class="zh">香港浸会大学 (HKBU)</span></h4>
+                            <p><span class="en">MA Communication (Interactive Media) | Sep 2025 - Sep 2026</span><span class="zh">传播学（交互媒体） 硕士 | 2025.09 - 2026.9</span></p>
+                        </div>
+                        <div class="edu-item" style="margin-top: 1.5rem;">
+                            <h4><span class="en">Beijing International Studies Univ. (BISU) & Communication Univ. of China (CUC)</span><span class="zh">北京第二外国语学院 (BISU) & 中国传媒大学 (CUC)</span></h4>
+                            <p><span class="en">BA English / Network & New Media | Sep 2020 - Jul 2024</span><span class="zh">英语/网络与新媒体 本科 学士 | 2020.9 - 2024.07</span></p>
+                            <p><span class="en" style="font-size: 0.85em; opacity: 0.8">BISU - CUC Joint Program in Intercultural Comm. & TNC // Double Degree Program</span><span class="zh" style="font-size: 0.85em; opacity: 0.8">中传与北二外联合培养“跨文化交流与跨国传播”双创实验班项目</span></p>
+                            <p style="margin-top: 5px;">GPA: 3.75/4.0</p>
+                        </div>
+                        <div class="edu-item" style="margin-top: 2rem;">
+                            <h4><span class="en">Honors & Awards</span><span class="zh">荣誉奖项</span></h4>
+                            <p class="en">Digital Media Design Competition (3rd Prize)<br>"Challenge Cup" Extracurricular Academic Tech Works Competition (Finalist)<br>"Jingcai Dachuang" Innovation & Entrepreneurship Competition (3rd Prize)<br></p>
+                            <p class="zh">数字媒体设计大赛三等奖<br>“挑战杯”首都大学生课外学术科技作品入围奖<br>“京彩大创”大学生创新创业大赛三等奖<br></p>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col">
+                        <h3><span class="en">Skills Profile</span><span class="zh">核心技能</span></h3>
+                        <div class="skill-tags">
+                            <div class="skill-tag hover-target">English (IELTS 7.0, TEM 8)</div>
+                            <div class="skill-tag hover-target">Python</div>
+                            <div class="skill-tag hover-target">HTML/ CSS3</div>
+                            <div class="skill-tag hover-target">A/B Testing</div>
+                            <div class="skill-tag hover-target"><span class="en">Content Strategy</span><span class="zh">内容策略</span></div>
+                            <div class="skill-tag hover-target"><span class="en">Growth Operations</span><span class="zh">用户增长运营</span></div>
+                            <div class="skill-tag hover-target"><span class="en">Data Analysis</span><span class="zh">数据分析</span></div>
+                            <div class="skill-tag hover-target"><span class="en">UX Research</span><span class="zh">用户体验研究</span></div>
+                            <div class="skill-tag hover-target"><span class="en">Digital Marketing</span><span class="zh">数字营销</span></div>
+                            <div class="skill-tag hover-target"><span class="en">Video Editing</span><span class="zh">视频剪辑</span></div>
+                            <div class="skill-tag hover-target"><span class="en">Visual Design</span><span class="zh">视觉设计</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <span>
+                        <span class="en">© 2026 JUN DU (EDDY) // ALL RIGHTS RESERVED</span>
+                        <span class="zh">© 2026 杜珺 (JUN DU) // 保留所有权利</span>
+                    </span>
+                    <span>
+                        <span class="en">BASED IN Beijing & Shenzhen</span>
+                        <span class="zh">Base 在北京与深圳</span>
+                </span>
+            </div>
+        </footer>
+
+        </div>
+    </main>
+
+    <!-- AI Digital Clone Floating Button -->
+    <button class="ai-fab hover-target" id="ai-fab" title="Ask AI Eddy">
+        ✦
+    </button>
+
+    <!-- AI Digital Clone Modal -->
+    <div class="ai-modal" id="ai-modal">
+        <div class="ai-sidebar">
+            <div class="ai-header">
+                <h3>
+                    <span class="en">AI Eddy </span>
+                    <span class="zh">杜珺的 AI 分身 </span>
+                    <span style="color:var(--accent); font-size:1rem;">● ONLINE</span>
+                </h3>
+                <div class="ai-close hover-target" id="ai-close">[ CLOSE ]</div>
+            </div>
+            <div class="ai-chat-area" id="ai-chat-area">
+                <div class="chat-msg ai">
+                    <span class="en">Hello! I am Eddy's AI clone. I know all about his experience, and his data visualization skills. What would you like to know?</span>
+                    <span class="zh">你好！我是杜珺 (Eddy) 的数字分身。我了解她的所有经历和技能。你想了解关于她的什么信息？</span>
+                </div>
+            </div>
+            <div class="ai-typing" id="ai-typing">Synthesizing response...</div>
+            <div class="ai-input-area">
+                <input type="text" class="ai-input hover-target" id="ai-input" placeholder="Ask a question / 提问..." autocomplete="off">
+                <button class="ai-send hover-target" id="ai-send">SEND</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+
+    <script>
+        // --- 1. Language Toggle Logic ---
+        const langToggle = document.getElementById('lang-toggle');
+        // Initial setup
+        if (document.body.classList.contains('zh-mode')) {
+            langToggle.innerHTML = "中 <span style='font-size:12px;opacity:0.5'>/</span> EN";
+        } else {
+            langToggle.innerHTML = "EN <span style='font-size:12px;opacity:0.5'>/</span> 中";
+        }
+        
+        langToggle.addEventListener('click', () => {
+            document.body.classList.toggle('zh-mode');
+            if(document.body.classList.contains('zh-mode')) {
+                langToggle.innerHTML = "中 <span style='font-size:12px;opacity:0.5'>/</span> EN";
+            } else {
+                langToggle.innerHTML = "EN <span style='font-size:12px;opacity:0.5'>/</span> 中";
+            }
+        });
+
+        // --- 2. Smooth Scrolling Setup (Lenis) ---
+        const lenis = new Lenis({
+            duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            direction: 'vertical', smooth: true,
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        // --- 3. Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        if (!isTouchDevice) {
+            window.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
+                gsap.to(cursorOutline, { x: e.clientX, y: e.clientY, duration: 0.15, ease: "power2.out" });
+            });
+            
+            document.querySelectorAll('.hover-target').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+
+            // Special Video Play Hover targets
+            document.querySelectorAll('.hover-play').forEach(el => {
+                const vid = el.querySelector('video');
+                // 🌟 [近期新增功能]: 获取进度条填充元素及容器
+                const progressBar = el.querySelector('.video-progress');
+                const progressFill = el.querySelector('.video-progress-fill');
+                
+                // 🌟 [近期新增功能]: 监听时间更新，填充进度条，并增加点击拖动支持
+                if(vid && progressFill && progressBar) {
+                    vid.addEventListener('timeupdate', () => {
+                        if (vid.duration) {
+                            const progress = (vid.currentTime / vid.duration) * 100;
+                            progressFill.style.width = `${progress}%`;
+                        }
+                    });
+
+                    // 🌟 [近期新增功能]: 点击进度条调节视频进度
+                    progressBar.addEventListener('click', (e) => {
+                        e.stopPropagation(); // 阻止事件冒泡到外层容器
+                        if (vid.duration) {
+                            const rect = progressBar.getBoundingClientRect();
+                            const clickX = e.clientX - rect.left; // 计算鼠标点击点距离进度条左侧的宽度
+                            const newTime = (clickX / rect.width) * vid.duration; // 按比例计算出对应视频的时间点
+                            vid.currentTime = newTime;
+                        }
+                    });
+                }
+
+                el.addEventListener('mouseenter', () => {
+                    document.body.classList.add('cursor-play');
+                    if(vid) {
+                        vid.play().catch(e => console.log("等待用户交互后即可有声播放"));
+                    }
+                });
+                el.addEventListener('mouseleave', () => {
+                    document.body.classList.remove('cursor-play');
+                    if(vid) vid.pause();
+                });
+            });
+        }
+
+        // --- 4. 3D Gallery ---
+        const designImages = [
+            "pic/t1 (1).png", 
+            "pic/t1 (2).png", 
+            "pic/t1 (3).png", 
+            "pic/t1 (1).png", 
+            "pic/aa.jpg", 
+            "pic/bb.jpg", 
+            "pic/cc.jpg", 
+            "pic/dd.jpg"  
+        ];
+
+        const modelContainer = document.getElementById('model');
+        designImages.forEach((src, index) => {
+            const item = document.createElement('div');
+            item.className = 'item hover-target';
+            item.addEventListener('click', () => console.log(`Open Visual/Video Work ${index + 1}`));
+            item.innerHTML = `
+                <div class="item-content">
+                    <img src="${src}" alt="Creative Work ${index + 1}">
+                    <div class="project-title">
+                        <span class="en">Creative Archive 0${index + 1}</span>
+                        <span class="zh">创意归档 0${index + 1}</span>
+                    </div>
+                </div>
+            `;
+            modelContainer.appendChild(item);
+        });
+
+        const items = document.querySelectorAll('.item');
+        const markItemOrientation = (item, img) => {
+            if (!img || !img.naturalWidth || !img.naturalHeight) return;
+            const ratio = img.naturalWidth / img.naturalHeight;
+            item.style.setProperty('--img-ratio', ratio);
+            item.classList.remove('is-landscape', 'is-portrait');
+            if (ratio > 1.05) {
+                item.classList.add('is-landscape');
+            } else {
+                item.classList.add('is-portrait');
+            }
+        };
+
+        items.forEach((item) => {
+            const img = item.querySelector('img');
+            if (!img) return;
+            if (img.complete) {
+                markItemOrientation(item, img);
+            } else {
+                img.addEventListener('load', () => markItemOrientation(item, img), { once: true });
+            }
+        });
+
+        const theta = 360 / items.length; 
+        const world = document.getElementById('world');
+
+        let config3D = { radius: 10, tilt: 0 };
+        let isDragging3D = false;
+        let startX, startY;
+        let currentRotX = -5, currentRotY = 0, currentScale = 1;
+
+        let isMobile = window.innerWidth <= 768;
+        window.addEventListener('resize', () => { isMobile = window.innerWidth <= 768; });
+
+        function updateMorphology() {
+            items.forEach((item, index) => {
+                item.style.transform = `rotateY(${theta * index}deg) translateX(${config3D.radius}px) translateZ(${index}px) rotateX(${config3D.tilt}deg)`;
+            });
+        }
+        updateMorphology();
+
+        setInterval(() => {
+            const randomRange = isMobile ? 80 : 200;
+            const baseRadius = isMobile ? 80 : 120; 
+            config3D.radius = Math.floor(Math.random() * randomRange) + baseRadius;
+            config3D.tilt = Math.floor(Math.random() * 60) - 30;
+            updateMorphology();
+        }, 7000); 
+
+        function animate3D() {
+            if (!isDragging3D) currentRotY += 0.15; 
+            world.style.transform = `scale(${currentScale}) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+            requestAnimationFrame(animate3D);
+        }
+        animate3D();
+
+        world.addEventListener('pointerdown', (e) => {
+            if(e.target.tagName.toLowerCase() === 'img') return;
+            isDragging3D = true; startX = e.clientX; startY = e.clientY;
+        });
+        window.addEventListener('pointermove', (e) => {
+            if (!isDragging3D) return;
+            currentRotY += (e.clientX - startX) * 0.4; 
+            currentRotX -= (e.clientY - startY) * 0.2; 
+            if (currentRotX > 45) currentRotX = 45; if (currentRotX < -45) currentRotX = -45;
+            startX = e.clientX; startY = e.clientY;
+        });
+        window.addEventListener('pointerup', () => isDragging3D = false);
+
+        // --- 5. Preloader ---
+        const initIntroAnimations = () => {
+            const tl = gsap.timeline();
+            gsap.set(".hero-title", { opacity: 0, scale: 0.9 });
+            gsap.set(".world", { scale: 0.2, opacity: 0 });
+            gsap.set(".ui-panel", { x: -50, opacity: 0 });
+            
+            tl.to(".preloader", { yPercent: -100, duration: 1.2, ease: "power4.inOut" })
+              .to(".world", { scale: 1, opacity: 1, duration: 2, ease: "expo.out" }, "-=0.5")
+              .to(".hero-title", { opacity: 0.15, scale: 1, duration: 1.5, stagger: 0.2, ease: "power3.out" }, "-=1.5")
+              .to(".ui-panel", { x: 0, opacity: 1, duration: 1 }, "-=1");
+        };
+
+        let counterVal = 0;
+        const updateCounter = () => {
+            if (counterVal < 100) {
+                counterVal += Math.floor(Math.random() * 10) + 2; 
+                if (counterVal > 100) counterVal = 100;
+                document.querySelector('.counter').textContent = `${counterVal}%`;
+                setTimeout(updateCounter, Math.random() * 40);
+            } else {
+                config3D.radius = isMobile ? 120 : 220; 
+                updateMorphology();
+                setTimeout(initIntroAnimations, 300);
+            }
+        };
+        window.onload = () => setTimeout(updateCounter, 100);
+
+        // --- 6. ScrollTrigger Animations ---
+        
+        gsap.utils.toArray('.parallax-card').forEach((card, i) => {
+            gsap.from(card, {
+                y: 100, opacity: 0, duration: 1, ease: "power3.out",
+                scrollTrigger: { trigger: card, start: "top 85%" }
+            });
+        });
+
+        let mm = gsap.matchMedia();
+        mm.add("(min-width: 769px)", () => {
+            const videoTrack = document.querySelector('.video-track');
+            if(videoTrack) {
+                gsap.to(videoTrack, {
+                    x: () => -(videoTrack.scrollWidth - window.innerWidth + 100),
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".video-showcase",
+                        start: "top top",
+                        end: () => `+=${videoTrack.scrollWidth}`,
+                        scrub: 1,
+                        pin: true,
+                        invalidateOnRefresh: true
+                    }
+                });
+            }
+
+            const uiTrack = document.querySelector('.ui-track');
+            if(uiTrack) {
+                let uiTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".ui-showcase",
+                        start: "top top",
+                        end: () => `+=${uiTrack.scrollWidth}`,
+                        scrub: 1,
+                        pin: true,
+                        invalidateOnRefresh: true
+                    }
+                });
+
+                uiTl.to(uiTrack, {
+                    x: () => -(uiTrack.scrollWidth - window.innerWidth),
+                    ease: "none"
+                });
+
+                const uiCards = gsap.utils.toArray('.ui-card');
+                uiCards.forEach((card) => {
+                    gsap.set(card, { scale: 0.8, opacity: 0.3, rotationY: 45, z: -200 });
+                    
+                    gsap.to(card, {
+                        scale: 1, opacity: 1, rotationY: 0, z: 0,
+                        duration: 1, ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            containerAnimation: uiTl,
+                            start: "left center+=40%",
+                            end: "center center",
+                            scrub: true
+                        }
+                    });
+                    
+                    gsap.to(card, {
+                        scale: 0.8, opacity: 0.3, rotationY: -45, z: -200,
+                        duration: 1, ease: "power2.in",
+                        scrollTrigger: {
+                            trigger: card,
+                            containerAnimation: uiTl,
+                            start: "center center",
+                            end: "right center-=40%",
+                            scrub: true
+                        }
+                    });
+                });
+            }
+        });
+
+        gsap.utils.toArray('.project-img').forEach(img => {
+            gsap.to(img, {
+                yPercent: 20, ease: "none",
+                scrollTrigger: { trigger: img.parentElement.parentElement, start: "top bottom", end: "bottom top", scrub: true }
+            });
+        });
+
+        // --- 7. Qwen API Integration (AI Digital Clone) ---
+        const aiFab = document.getElementById('ai-fab');
+        const aiModal = document.getElementById('ai-modal');
+        const aiClose = document.getElementById('ai-close');
+        const aiInput = document.getElementById('ai-input');
+        const aiSend = document.getElementById('ai-send');
+        const aiChatArea = document.getElementById('ai-chat-area');
+        const aiTyping = document.getElementById('ai-typing');
+        
+        // 🚨 请在此处填入你的通义千问 (DashScope) API Key 🚨
+        const apiKey = "sk-da033d56d9e045f89287e2f3127ac187"; 
+        
+        const systemPrompt = `You are the personal AI clone of Jun Du (Eddy), a Data-Driven Content Strategist & Interactive Media Creator. 
+Your goal is to answer questions from recruiters or visitors about Jun Du's background, skills, and experience.
+Be professional, concise, slightly witty, and highly confident. Use this resume context:
+- Education: HKBU (MA Interactive Media 2025-), BISU & CUC (BA English/New Media 2020-2024, GPA 3.75).
+- Experience: Caixin Media (Financial New Media Ops, 4.7% engagement, AI workflow 1000+ followers/week), Perfect World (Content Ops Intern, A/B testing, 20% CPM drop), Bestseller/Vero Moda (E-commerce Content, 200k+ UV), Xiaomi (Mi Game Center Intern, built SOPs, 250% dwell time increase).
+- Skills: English (IELTS 7.0), Python (Pandas), HTML5/CSS3, A/B Testing, Content Strategy, Data Analysis, Video Editing, UX Research.
+- Projects: Beijing Bird Ecology (Python/HTML viz with soundscape), Ying You Jin You (App Strategy), Subway to Spring (Board Game Marketing).
+Always respond in the same language the user uses (English or Chinese). Keep responses relatively short (2-3 sentences max) to fit easily in a chat window.`;
+
+        // 历史记录，预先放入 system prompt
+        let chatHistory = [
+            { role: "system", content: systemPrompt }
+        ];
+
+        aiFab.addEventListener('click', () => {
+            aiModal.classList.add('active');
+            setTimeout(() => aiInput.focus(), 500);
+        });
+
+        aiClose.addEventListener('click', () => {
+            aiModal.classList.remove('active');
+        });
+        
+        aiModal.addEventListener('click', (e) => {
+            if (e.target === aiModal) aiModal.classList.remove('active');
+        });
+
+        const appendMessage = (text, sender) => {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-msg ${sender}`;
+            msgDiv.textContent = text;
+            aiChatArea.appendChild(msgDiv);
+            aiChatArea.scrollTop = aiChatArea.scrollHeight;
+        };
+
+        const fetchQwenWithBackoff = async (userMessage, retries = 3) => {
+            const delays = [1000, 2000, 4000];
+            // 使用兼容 OpenAI 格式的 endpoint，集成更方便
+            const url = `https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions`;
+            
+            chatHistory.push({ role: "user", content: userMessage });
+            
+            const payload = {
+                model: "qwen-plus", // 您可以根据需要修改为 qwen-turbo, qwen-max 等
+                messages: chatHistory
+            };
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const result = await response.json();
+                    
+                    const aiText = result.choices?.[0]?.message?.content || "Communication glitch. Try again.";
+                    chatHistory.push({ role: "assistant", content: aiText });
+                    
+                    return aiText;
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(res => setTimeout(res, delays[i]));
+                }
+            }
+        };
+
+        const handleSend = async () => {
+            const text = aiInput.value.trim();
+            if (!text) return;
+            
+            appendMessage(text, 'user');
+            aiInput.value = '';
+            aiInput.disabled = true;
+            aiSend.disabled = true;
+            aiTyping.style.display = 'block';
+            
+            if (!apiKey) {
+                aiTyping.style.display = 'none';
+                appendMessage("❌ 请先在代码中填入通义千问的 API Key。", 'ai');
+                aiInput.disabled = false;
+                aiSend.disabled = false;
+                return;
+            }
+
+            try {
+                const response = await fetchQwenWithBackoff(text);
+                aiTyping.style.display = 'none';
+                appendMessage(response, 'ai');
+            } catch (err) {
+                aiTyping.style.display = 'none';
+                appendMessage("Neural link severed. Please check API connection or key.", 'ai');
+            }
+            
+            aiInput.disabled = false;
+            aiSend.disabled = false;
+            aiInput.focus();
+        };
+
+        aiSend.addEventListener('click', handleSend);
+        aiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+
+    </script>
+</body>
+</html>

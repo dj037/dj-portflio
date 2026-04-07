@@ -1,0 +1,130 @@
+.menu {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000000;
+  color: #fff;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.menu ul li {
+  margin: 0 1rem;
+}
+
+.menu ul li a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  display: block;
+  font-size: 20px;
+  font-weight: normal;
+  padding: 10px 0;
+}
+.menu ul li.on a {
+  font-weight: bold;
+  color: #fff;
+}
+
+@media (max-width: 1200px) {
+  body {
+    padding-bottom: 14vw !important;
+  }
+  .menu ul li a {
+    font-size: 18px;
+  }
+  .ban-title {
+    top: 50% !important;
+    transform: translateY(-60%);
+  }
+  .ban-title p {
+    font-size: 20vw !important;
+  }
+  #arrow {
+    height: 15vw;
+    background-size: 12vw;
+  }
+  #arrow-text {
+    font-size: 2vw;
+  }
+  .logo h2 {
+    font-size: 9vw !important;
+  }
+}
+
+.mob-nav {
+  display: none;
+}
+#mark {
+  color: #000 !important;
+}
+@media (max-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+  .menu {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .menu ul {
+    display: none;
+    position: absolute;
+    background: #000;
+    top: 44px;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+  }
+  .mob-nav {
+    display: block;
+    width: 30px;
+  }
+  .mob-nav:after,
+  .mob-nav:before {
+    content: "";
+    display: block;
+  }
+  .mob-nav:after,
+  .mob-nav:before,
+  .mob-nav span {
+    display: block;
+    height: 2px;
+    background: #fff;
+  }
+  .mob-nav span {
+    margin: 9px 0;
+  }
+  #allmap {
+    margin: 0 15px !important;
+    height: 400px;
+  }
+  .image-container {
+    flex: 1;
+    padding-bottom: 18%;
+  }
+  .container img {
+    height: auto !important;
+    width: 100% !important;
+  }
+  .container p {
+    width: 90% !important;
+  }
+  .image-container img {
+    position: absolute;
+    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .container h1 {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+}

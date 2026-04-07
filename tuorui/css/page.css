@@ -1,0 +1,76 @@
+.wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.container img {
+  margin: 10px auto !important;
+}
+.content {
+  margin-top: 20px;
+}
+
+.year-tab {
+  display: flex;
+}
+.year-list {
+  width: 100px;
+  border-right: 2px solid #6e6988;
+}
+.year-list-item {
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: right;
+  padding-right: 10px;
+  margin: 15px 0;
+  cursor: pointer;
+  color: #333;
+}
+.year-list-item.on {
+  color: rgb(2, 87, 19);
+}
+.year-cont {
+  flex: 1;
+  margin-left: 15px;
+}
+.year-cont-item {
+  display: none;
+}
+.year-cont-item p {
+  color: white;
+  font-size: 40px;
+  line-height: 1.6;
+  margin: 15px 0;
+}
+.year-cont-item.on {
+  display: block;
+}
+
+#allmap {
+  height: 600px;
+}
+.container h1 {
+  color: #000;
+  margin: 20px 0 !important;
+}
+.container p {
+  color: #333;
+  font-family: "宋体" !important;
+  text-align: justify !important;
+}
+.containerpic {
+  margin-bottom: 30px;
+}
+.image-container img {
+  margin: 0 !important;
+}
+.image-container .overlay p {
+  color: #fff;
+  font-size: 18px !important;
+  text-indent: 0 !important;
+  text-align: center !important;
+  line-height: 1.5 !important;
+}
+
+#arrow-container a {
+  color: #333 !important;
+}

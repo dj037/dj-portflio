@@ -1,0 +1,8 @@
+﻿
+# Exclude very large media files for GitHub push
+video/dog.mp4
+video/rain.mp4
+video/rice.mp4
+birdSite/images/video/visit.mp4
+birdSite/video/visit.mp4
+
