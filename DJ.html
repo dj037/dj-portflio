@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -329,7 +329,7 @@
 
         /* 🌟 [近期新增功能]: 横竖屏动态画幅比例控制 */
         .video-item.landscape { width: min(46vw, 820px); aspect-ratio: 16 / 9; }
-        .video-item.portrait { width: calc(60vh * 9 / 16); }
+        .video-item.portrait { width: min(40vh, 400px); height: min(71.1vh, 711px); aspect-ratio: 9/16; }
         
         .video-item video {
             width: 100%; height: 100%; object-fit: cover;
@@ -634,7 +634,7 @@
 
             /* 🌟 [近期新增功能]: 移动端的视频画幅自适应 */
             .video-item.landscape { width: 100%; height: auto; aspect-ratio: 16/9; }
-            .video-item.portrait { width: 80%; margin: 0 auto; height: auto; aspect-ratio: 9/16; }
+            .video-item.portrait { width: min(80vw, 400px); margin: 0 auto; height: auto; aspect-ratio: 9/16; }
 
             .video-item video { opacity: 0.8; filter: grayscale(0%); transform: scale(1); }
             .video-info { transform: translateY(0); opacity: 1; bottom: 1rem; left: 1rem; width: calc(100% - 2rem); padding: 1rem; }
@@ -686,6 +686,8 @@
     </style>
 </head>
 <body class="zh-mode">
+    <!-- Particle Background -->
+    <canvas id="particle-portrait" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; mix-blend-mode: screen;"></canvas>
 
     <!-- Noise Overlay -->
     <div class="noise"></div>
@@ -770,15 +772,7 @@
                 </div>
             </section>
 
-            <!-- Manifesto Section -->
-            <section class="manifesto">
-                <p class="manifesto-text">
-                    <span class="en">A DATA-DRIVEN CONTENT STRATEGIST & INTERACTIVE MEDIA CREATOR. BRIDGING THE GAP BETWEEN UX RESEARCH, DIGITAL MARKETING, AND HIGH-IMPACT VISUAL STORYTELLING.</span>
-                    <span class="zh">数据驱动的内容策略师与互动媒体创作者。致力于在用户体验、数字营销与极具视觉冲击力的故事讲述之间建立完美桥梁。</span>
-                </p>
-            </section>
-
-            <!-- Experience Parallax Section -->
+<!-- Experience Parallax Section -->
             <!-- 🌟 [近期新增功能]: 添加 id 以供导航跳转 -->
             <section class="experience" id="experience">
                 <div class="exp-left">
@@ -1725,28 +1719,8 @@ Always respond in the same language the user uses (English or Chinese). Keep res
         }
 
     </script>
-
-    <!-- Particle Portrait System -->
+    <!-- Particle System -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="particle-portrait.js"></script>
-    <script>
-        // 当 DOM 加载完成后，初始化粒子人物
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                new ParticlePortrait({
-                    particleSize: 2.5,
-                    particleColor: '#00d4ff',
-                    glowColor: 'rgba(0, 212, 255, 0.2)',
-                    maxDispersion: 150
-                });
-            });
-        } else {
-            new ParticlePortrait({
-                particleSize: 2.5,
-                particleColor: '#00d4ff',
-                glowColor: 'rgba(0, 212, 255, 0.2)',
-                maxDispersion: 150
-            });
-        }
-    </script>
 </body>
 </html>
