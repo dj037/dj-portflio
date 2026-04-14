@@ -8,7 +8,7 @@ if(!c.includes('particle-portrait"')) {
 
 // Make sure three.js is still there
 if(!c.includes('three.min.js')) {
-    c = c.replace('</body>', '    <!-- Particle System -->\n    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>\n    <script src="particle-portrait.js"></script>\n</body>');
+    c = c.replace('</body>', '    <!-- Particle System -->\n    <script src="https://cdn.bootcdn.net/ajax/libs/three.js/r128/three.min.js"></script>\n    <script src="particle-portrait.js"></script>\n</body>');
 }
 
 fs.writeFileSync('e:/Desktop/porfolio/DJ.html', c);

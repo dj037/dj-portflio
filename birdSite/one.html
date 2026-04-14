@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/page.css">
   <link rel="stylesheet" href="./css/menu.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <script src="./js/jquery-1.12.4.min.js"></script>
 
   <title>一、国家对于本地鸟类保护的历史及其成果</title>
@@ -157,7 +157,7 @@
       $('.year-cont-item').eq(index).addClass('on').siblings().removeClass('on')
     })
   </script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script type="text/javascript">
     const addressArr = [
       {
@@ -249,7 +249,7 @@
       initLeafletMap();
     } else {
       var leafletScript = document.createElement("script");
-      leafletScript.src = "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js";
+      leafletScript.src = "https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.js";
       leafletScript.onload = initLeafletMap;
       leafletScript.onerror = function () {
         document.getElementById("allmap").innerHTML = "地图组件加载失败，请检查网络后刷新。";
