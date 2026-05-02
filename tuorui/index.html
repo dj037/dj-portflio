@@ -105,9 +105,7 @@
       <!-- 数据可视化部分 -->
       <div class="tubiao1" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1500" style="margin-top: var(--spacing-lg);">
         <div class="grid--2cols" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-lg); width: 100%;">
-          <div class="chart-container">
-            <canvas id="myChart"></canvas>
-          </div>
+          <div class="chart-container" id="chart1"></div>
           <div style="overflow-x: auto;">
             <table class="table table-hover">
               <thead>
@@ -348,37 +346,37 @@
     </section>
 
     <!-- 采访部分 -->
-    <section class="section column interview" data-aos="flip-left" data-aos-delay="300" data-aos-duration="1500" style="text-align: center;">
-      <h3>妥友采访</h3>
-      <p><strong>董某，今年17岁，北京市海淀区高二学生。</strong></p>
-      <p><small>以下信息获得对象许可后进行采访记录，出于保护对患者采取匿名原则。</small></p>
+    <section class="section column interview" data-aos="flip-left" data-aos-delay="300" data-aos-duration="1500">
+      <h3 style="text-align: center;">妥友采访</h3>
+      <p style="text-align: center;"><strong>董某，今年17岁，北京市海淀区高二学生。</strong></p>
+      <p style="text-align: center;"><small>以下信息获得对象许可后进行采访记录，出于保护对患者采取匿名原则。</small></p>
 
-      <div class="interview-question" style="text-align: center;">问：董某你好，请问你是从多大年纪开始有产生一些关于妥瑞症的症状呢？</div>
-      <div class="interview-answer" style="text-align: center;">答：还挺小的，应该是我上小学低年级那会儿。</div>
+      <div class="interview-question">问：董某你好，请问你是从多大年纪开始有产生一些关于妥瑞症的症状呢？</div>
+      <div class="interview-answer">答：还挺小的，应该是我上小学低年级那会儿。</div>
 
-      <div class="interview-question" style="text-align: center;">问：那请问你是什么时候被诊断为妥瑞症的呢？</div>
-      <div class="interview-answer" style="text-align: center;">答：小学四年级</div>
+      <div class="interview-question">问：那请问你是什么时候被诊断为妥瑞症的呢？</div>
+      <div class="interview-answer">答：小学四年级</div>
 
-      <div class="interview-question" style="text-align: center;">问：症状的主要表现方式是？</div>
-      <div class="interview-answer" style="text-align: center;">答：我主要就是肢体和面部会有时抽动</div>
+      <div class="interview-question">问：症状的主要表现方式是？</div>
+      <div class="interview-answer">答：我主要就是肢体和面部会有时抽动</div>
 
-      <div class="interview-question" style="text-align: center;">问：你在抽动或者想要抽动的时候身体或者心理有什么样的感受吗？</div>
-      <div class="interview-answer" style="text-align: center;">答：我就是感觉不舒服，所以就想动一下。</div>
+      <div class="interview-question">问：你在抽动或者想要抽动的时候身体或者心理有什么样的感受吗？</div>
+      <div class="interview-answer">答：我就是感觉不舒服，所以就想动一下。</div>
 
-      <div class="interview-question" style="text-align: center;">问：这个症状对你的日常生活和学习有哪些具体影响吗？</div>
-      <div class="interview-answer" style="text-align: center;">答：比如我学习或者打游戏精神高度集中的时候，我比较容易有抽动，但对我来说基本没啥太大的影响，就是定期要放松。</div>
+      <div class="interview-question">问：这个症状对你的日常生活和学习有哪些具体影响吗？</div>
+      <div class="interview-answer">答：比如我学习或者打游戏精神高度集中的时候，我比较容易有抽动，但对我来说基本没啥太大的影响，就是定期要放松。</div>
 
-      <div class="interview-question" style="text-align: center;">问：你是什么时候开始接受治疗的？采取的治疗方式是什么？治疗持续了多长时间？治疗的效果你觉得怎么样？</div>
-      <div class="interview-answer" style="text-align: center;">答：我是小学四五年级那会去看的中医，中医说我脾胃有问题；我喝中药调理了一年差不多，之后就不怎么有抽动了。</div>
+      <div class="interview-question">问：你是什么时候开始接受治疗的？采取的治疗方式是什么？治疗持续了多长时间？治疗的效果你觉得怎么样？</div>
+      <div class="interview-answer">答：我是小学四五年级那会去看的中医，中医说我脾胃有问题；我喝中药调理了一年差不多，之后就不怎么有抽动了。</div>
 
-      <div class="interview-question" style="text-align: center;">问：你在生活中有没有因此受到别人异样的眼光和声音？</div>
-      <div class="interview-answer" style="text-align: center;">答：有一些但是还好，大多数他们都表示理解。</div>
+      <div class="interview-question">问：你在生活中有没有因此受到别人异样的眼光和声音？</div>
+      <div class="interview-answer">答：有一些但是还好，大多数他们都表示理解。</div>
 
-      <div class="interview-question" style="text-align: center;">问：你会因为抽动影响自己的心理情绪吗？</div>
-      <div class="interview-answer" style="text-align: center;">答：我心比较大，哈哈哈哈哈，基本没啥影响，因为我平时主要还是上课吗，学习就是得定期放松，要不很不舒服。</div>
+      <div class="interview-question">问：你会因为抽动影响自己的心理情绪吗？</div>
+      <div class="interview-answer">答：我心比较大，哈哈哈哈哈，基本没啥影响，因为我平时主要还是上课吗，学习就是得定期放松，要不很不舒服。</div>
 
-      <div class="interview-question" style="text-align: center;">问：如果你身边有认识的同学朋友，他（她）现在正因为抽动症或类似于此的情况，在日常生活中与他人的表现不同而感到自卑时，你会对他（她）说什么吗？</div>
-      <div class="interview-answer" style="text-align: center;">答：让他（她）做自己就好我觉得，不必在意别人说啥，人人都不完美。</div>
+      <div class="interview-question">问：如果你身边有认识的同学朋友，他（她）现在正因为抽动症或类似于此的情况，在日常生活中与他人的表现不同而感到自卑时，你会对他（她）说什么吗？</div>
+      <div class="interview-answer">答：让他（她）做自己就好我觉得，不必在意别人说啥，人人都不完美。</div>
     </section>
 
   
@@ -406,35 +404,31 @@
 
   <!-- 图表初始化脚本 -->
   <script>
-    // Pie Chart 1 - 妥瑞症确诊病例
-    var ctx = document.getElementById('myChart');
-    if (ctx) {
-      var myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: ['北京', '上海', '广东', '江苏', '浙江'],
-          datasets: [{
-            label: '妥瑞症确诊病例情况',
-            data: [10, 8, 12, 6, 9],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-              'rgba(153, 102, 255, 0.6)'
-            ],
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          title: {
-            display: true,
-            text: '妥瑞症确诊病例情况'
-          }
-        }
-      });
+    // Pie Chart 1 - 妥瑞症确诊病例 (使用 ECharts)
+    var dom1 = document.getElementById('chart1');
+    if (dom1 && typeof echarts !== 'undefined') {
+      var myChart1 = echarts.init(dom1);
+      var option1 = {
+        title: { subtext: "" },
+        tooltip: { trigger: "item", formatter: "{a} <br/>{b} : {c} ({d}%)" },
+        legend: { orient: "vertical", x: "left", data: ["北京", "上海", "广东", "江苏", "浙江"] },
+        series: [{
+          name: "妥瑞症确诊病例",
+          type: "pie",
+          radius: "55%",
+          center: ["50%", "60%"],
+          itemStyle: { normal: { label: { show: true, formatter: "{b}:{d}%" } } },
+          color: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
+          data: [
+            { value: 10, name: "北京" },
+            { value: 8, name: "上海" },
+            { value: 12, name: "广东" },
+            { value: 6, name: "江苏" },
+            { value: 9, name: "浙江" }
+          ]
+        }]
+      };
+      myChart1.setOption(option1);
     }
 
     // ECharts 图表 2 - 认知疗法使用情况
@@ -471,55 +465,38 @@
       myChart2.setOption(option2);
     }
 
-    // ECharts 图表 3 - 抽动类型
+    // ECharts 图表 3 - 抽动类型 (恢复为条形图/折线图)
     var dom3 = document.getElementById("chart3");
     if (dom3 && typeof echarts !== 'undefined') {
       var myChart3 = echarts.init(dom3);
       var option3 = {
-        title: { subtext: "" },
-        tooltip: { trigger: "item", formatter: "{a} <br/>{b} : {c} ({d}%)" },
-        legend: { orient: "vertical", x: "left", data: ["15.19%", "9.46%", "12.85%", "12.33%", "50.17%"] },
-        series: [{
-          name: "抽动类型",
-          type: "pie",
-          radius: "55%",
-          center: ["50%", "60%"],
-          itemStyle: { normal: { label: { show: true, formatter: "{b}:{d}%" } } },
-          color: ['#3caebf','#cf3d8e','#eea47d','#8dd3c7','#bebada'],
-          data: [
-            { value: 15.19, name: "15.19%" },
-            { value: 9.46, name: "9.46%" },
-            { value: 12.85, name: "12.85%" },
-            { value: 12.33, name: "12.33%" },
-            { value: 50.17, name: "50.17%" }
-          ]
-        }]
+        tooltip: { trigger: "axis" },
+        legend: { data: ["抽动类型", "数量"] },
+        xAxis: { type: "category", data: ["15.19%", "9.46%", "12.85%", "12.33%", "50.17%"] },
+        yAxis: [{ type: "value", name: "抽动类型" }, { type: "value", name: "数量", min: 0, max: 100 }],
+        series: [
+          { name: "市场规模", type: "bar", data: [15.19, 9.46, 12.85, 12.33, 50.17], color: '#3caebf' },
+          { name: "增长率", type: "line", yAxisIndex: 1, data: ["-", "9.2", "8.9", "10.9", "6.6"], color: '#cf3d8e' }
+        ]
       };
       myChart3.setOption(option3);
     }
 
-    // ECharts 图表 4 - 治疗方式
+    // ECharts 图表 4 - 治疗方式 (恢复为条形图)
     var dom4 = document.getElementById("chart4");
     if (dom4 && typeof echarts !== 'undefined') {
+      var data = [43.2, 22.1, 61.1, 35.5, 32.9];
       var myChart4 = echarts.init(dom4);
       var option4 = {
-        title: { subtext: "" },
-        tooltip: { trigger: "item", formatter: "{a} <br/>{b} : {c} ({d}%)" },
-        legend: { orient: "vertical", x: "left", data: ["中医治疗", "西医治疗", "偏方秘方", "中西结合", "未受治疗"] },
+        xAxis: { type: 'category', data: ['中医治疗', '西医治疗', '偏方秘方', '中西结合', '未受治疗'] },
+        yAxis: { type: 'value', axisLabel: { formatter: '{value}%' } },
         series: [{
-          name: "治疗方式",
-          type: "pie",
-          radius: "55%",
-          center: ["50%", "60%"],
-          itemStyle: { normal: { label: { show: true, formatter: "{b}:{d}%" } } },
-          color: ['#3caebf','#cf3d8e','#eea47d','#8dd3c7','#bebada'],
-          data: [
-            { value: 43.2, name: "中医治疗" },
-            { value: 22.1, name: "西医治疗" },
-            { value: 61.1, name: "偏方秘方" },
-            { value: 35.5, name: "中西结合" },
-            { value: 32.9, name: "未受治疗" }
-          ]
+          type: 'bar',
+          showBackground: true,
+          data: data,
+          backgroundStyle: { color: 'rgba(180, 180, 180, 0.2)' },
+          label: { show: true, position: 'top', formatter: '{c}%' },
+          itemStyle: { color: '#eea47d' }
         }]
       };
       myChart4.setOption(option4);
@@ -527,6 +504,7 @@
 
     // 确保 ECharts 在页面加载后重新适应容器大小
     window.addEventListener('resize', function() {
+      if (myChart1) myChart1.resize();
       if (myChart2) myChart2.resize();
       if (myChart3) myChart3.resize();
       if (myChart4) myChart4.resize();
