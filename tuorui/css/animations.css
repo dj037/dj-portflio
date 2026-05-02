@@ -1,0 +1,284 @@
+/* ============================================
+   妥瑞症专题 - 动画和过渡
+   ============================================ */
+
+/* ===== AOS 动画库集成 ===== */
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 0.6s;
+  transition-timing-function: ease-out;
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+}
+
+[data-aos*="fade-up"] {
+  transform: translateY(30px);
+}
+
+[data-aos*="fade-up"].aos-animate {
+  transform: translateY(0);
+}
+
+[data-aos*="fade-down"] {
+  transform: translateY(-30px);
+}
+
+[data-aos*="fade-down"].aos-animate {
+  transform: translateY(0);
+}
+
+[data-aos*="fade-left"] {
+  transform: translateX(-30px);
+}
+
+[data-aos*="fade-left"].aos-animate {
+  transform: translateX(0);
+}
+
+[data-aos*="fade-right"] {
+  transform: translateX(30px);
+}
+
+[data-aos*="fade-right"].aos-animate {
+  transform: translateX(0);
+}
+
+[data-aos*="flip-left"] {
+  transform: perspective(1000px) rotateY(-30deg);
+}
+
+[data-aos*="flip-left"].aos-animate {
+  transform: perspective(1000px) rotateY(0);
+}
+
+/* ===== Parallax 效果 ===== */
+.parallax-element {
+  will-change: transform;
+  transition: transform 0.3s ease-out;
+}
+
+/* ===== 首屏标题 Parallax ===== */
+.video-caption--head .video-headline {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.video-caption--head .video-summary {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ===== 平滑滚动 ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== 过渡和悬停效果 ===== */
+a, button, [role="button"] {
+  transition: all 0.25s ease;
+}
+
+.video {
+  transition: opacity 0.25s ease;
+}
+
+.video:hover {
+  opacity: 0.95;
+}
+
+.card {
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== 视频容器淡入 ===== */
+.video-container {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== 加载动画 ===== */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.loading {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ===== 淡出动画 ===== */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ===== 滑入动画 ===== */
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== 缩放动画 ===== */
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== 响应式动画调整 ===== */
+@media (max-width: 768px) {
+  [data-aos] {
+    transition-duration: 0.5s;
+  }
+
+  [data-aos*="fade-up"] {
+    transform: translateY(20px);
+  }
+
+  [data-aos*="fade-down"] {
+    transform: translateY(-20px);
+  }
+
+  /* 在移动设备上禁用复杂的parallax效果 */
+  .video-caption--head .video-headline {
+    will-change: auto;
+  }
+
+  .video-caption--head .video-summary {
+    will-change: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  [data-aos] {
+    transition-duration: 0.4s;
+  }
+
+  [data-aos*="fade-up"] {
+    transform: translateY(15px);
+  }
+
+  [data-aos*="fade-down"] {
+    transform: translateY(-15px);
+  }
+
+  [data-aos*="fade-left"] {
+    transform: translateX(-15px);
+  }
+
+  [data-aos*="fade-right"] {
+    transform: translateX(15px);
+  }
+
+  /* 禁用超小屏幕上的翻转动画 */
+  [data-aos*="flip-left"] {
+    transform: none;
+  }
+
+  [data-aos*="flip-left"].aos-animate {
+    transform: none;
+  }
+}
+
+/* ===== 减少动画偏好设置 ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .video-caption--head .video-headline,
+  .video-caption--head .video-summary {
+    will-change: auto;
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ===== 视频播放控制的过渡 ===== */
+.video-playing {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ===== 按钮活跃状态 ===== */
+button:active {
+  transform: scale(0.98);
+}
+
+#playBtn:active {
+  transform: scale(0.95);
+}
+
+/* ===== 表格行悬停效果 ===== */
+tbody tr {
+  transition: background-color 0.25s ease;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ===== 导航栏粘性效果 ===== */
+.navigation {
+  animation: slideInDown 0.4s ease-out;
+}
+
+/* ===== 页面加载完成指示 ===== */
+.page-loaded {
+  animation: fadeIn 0.6s ease-out;
+}

@@ -1,0 +1,413 @@
+/* ============================================
+   妥瑞症专题 - 组件样式
+   ============================================ */
+
+/* ===== 英雄部分 ===== */
+.video-sequence {
+  background-color: #000;
+  position: relative;
+}
+
+.video-sequence:first-of-type {
+  margin-top: 0;
+}
+
+.video-sequence-indicator {
+  font-family: var(--font-mono);
+  position: absolute;
+  line-height: 1.4;
+  color: var(--text-primary);
+  white-space: pre;
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+/* ===== 卡片组件 ===== */
+.card {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--spacing-lg);
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-light);
+}
+
+/* ===== 图表容器 ===== */
+.chart-container {
+  background-color: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+}
+
+canvas {
+  max-width: 100%;
+}
+
+/* ===== 旋转木马 (Carousel) ===== */
+.carousel {
+  background-color: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  position: relative;
+}
+
+.carousel-item {
+  display: none;
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 212, 255, 0.1);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 10;
+}
+
+.carousel-control-prev {
+  left: 1rem;
+  transform: translateY(-50%);
+}
+
+.carousel-control-next {
+  right: 1rem;
+  transform: translateY(-50%);
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 212, 255, 0.2);
+}
+
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+  content: '';
+  width: 0;
+  height: 0;
+}
+
+/* ===== 采访/访谈部分 ===== */
+.interview {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 0, 0, 0.5) 100%);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+}
+
+.interview-question {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-md);
+  border-left: 3px solid var(--accent);
+}
+
+.interview-answer {
+  color: #ffffff;
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-md);
+}
+
+/* ===== 图表/统计 ===== */
+.tubiao1 {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  flex-wrap: wrap;
+}
+
+.tubiao1 > * {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* ===== 图片和标题 ===== */
+.image {
+  margin: var(--spacing-lg) 0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+  padding: var(--spacing-lg) var(--spacing-md);
+  color: #ffffff;
+}
+
+.image-overlay h3,
+.image-overlay h4 {
+  font-family: var(--font-nyt);
+  font-weight: 200;
+  margin: 0 0 var(--spacing-sm) 0;
+  color: #ffffff;
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.caption {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-top: var(--spacing-sm);
+  font-style: italic;
+}
+
+/* ===== 分隔线和装饰 ===== */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: var(--spacing-xl) 0;
+}
+
+.byline-rule {
+  border-top: 2px solid var(--text-primary);
+  width: 100px;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ===== 头条和副标题 ===== */
+.headline {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-md);
+}
+
+.byline {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+.byline-first {
+  margin-bottom: var(--spacing-md);
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.byline .author {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* ===== 页脚 ===== */
+.footer-section {
+  background-color: rgba(0, 0, 0, 0.95);
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-lg) var(--spacing-md);
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.footer-section a {
+  display: inline-block;
+  border-right: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+  margin-right: var(--spacing-sm);
+  padding-right: var(--spacing-sm);
+  font-size: 0.85rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footer-section a:last-child {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.footer-section a:hover {
+  color: var(--accent);
+}
+
+/* ===== 信用/制作者 ===== */
+.section--credits {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-top: var(--spacing-xl);
+}
+
+.section--credits a {
+  color: var(--text-tertiary);
+}
+
+/* ===== 音频播放器 ===== */
+audio {
+  width: 100%;
+  margin: var(--spacing-md) 0;
+}
+
+/* ===== Dropcap (首字下沉) ===== */
+.dropcap {
+  float: left;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 0.8;
+  margin: 0.1em 0.1em 0 0;
+  color: var(--accent);
+}
+
+/* ===== 响应式组件 - 平板及以下 (768px) ===== */
+@media (max-width: 768px) {
+  .card {
+    padding: var(--spacing-md);
+  }
+
+  .chart-container {
+    padding: var(--spacing-md);
+    min-height: 250px;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .carousel-control-prev {
+    left: 0.5rem;
+  }
+
+  .carousel-control-next {
+    right: 0.5rem;
+  }
+
+  .interview {
+    padding: var(--spacing-md);
+  }
+
+  .headline {
+    font-size: 1.75rem;
+  }
+
+  .tubiao1 {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .tubiao1 > * {
+    min-width: 100%;
+  }
+
+  .footer-section {
+    padding: var(--spacing-md);
+  }
+
+  .footer-section a {
+    display: block;
+    border-right: none;
+    margin-right: 0;
+    padding-right: 0;
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+/* ===== 响应式组件 - 手机 (480px) ===== */
+@media (max-width: 480px) {
+  .card {
+    padding: var(--spacing-md);
+  }
+
+  .chart-container {
+    padding: var(--spacing-md);
+    min-height: 200px;
+  }
+
+  .carousel-item {
+    padding: var(--spacing-md);
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .interview {
+    padding: var(--spacing-md);
+  }
+
+  .interview-question,
+  .interview-answer {
+    padding-left: var(--spacing-sm);
+  }
+
+  .headline {
+    font-size: 1.5rem;
+  }
+
+  .byline-rule {
+    width: 80px;
+  }
+
+  .image {
+    margin: var(--spacing-md) 0;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    padding: var(--spacing-xs);
+  }
+}
+
+/* ===== 深色模式适应 ===== */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+  }
+}
