@@ -205,16 +205,18 @@
         .world {
             position: relative; transform-style: preserve-3d; z-index: 10;
             width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-            touch-action: pan-y; 
+            touch-action: pan-y;
+            will-change: transform;
         }
         .world:active { cursor: none; }
-        .model-center { position: absolute; transform-style: preserve-3d; }
+        .model-center { position: absolute; transform-style: preserve-3d; will-change: transform; }
         .item {
             position: absolute; top: calc(var(--item-height) / -2); left: calc(var(--item-width) / -2);
             width: var(--item-width); height: var(--item-height);
             transform-origin: center center; overflow: visible;
-            transition: filter 0.4s ease, transform 3s cubic-bezier(0.25, 1, 0.5, 1);
-            filter: brightness(0.85); 
+            transition: filter 0.4s ease;
+            filter: brightness(0.85);
+            will-change: transform;
         }
         .item.hover-target { pointer-events: auto; }
         .item:hover {
@@ -1434,27 +1436,44 @@
         let isMobile = window.innerWidth <= 768;
         window.addEventListener('resize', () => { isMobile = window.innerWidth <= 768; });
 
+        // Per-item hover Z tracking for smooth 3D occlusion (must be before updateMorphology call)
+        let hoveredIdx = -1;
+        const hoverZMap = new Map();
+        items.forEach((item, index) => {
+            hoverZMap.set(index, 0);
+            item.addEventListener('mouseenter', () => { hoveredIdx = index; });
+            item.addEventListener('mouseleave', () => { hoveredIdx = -1; });
+        });
+
         function updateMorphology() {
             items.forEach((item, index) => {
-                item.style.transform = `rotateY(${theta * index}deg) translateX(${config3D.radius}px) translateZ(${index}px) rotateX(${config3D.tilt}deg)`;
+                const targetZ = (index === hoveredIdx) ? 150 : 0;
+                let curZ = hoverZMap.get(index) || 0;
+                curZ += (targetZ - curZ) * 0.15;
+                hoverZMap.set(index, curZ);
+                item.style.transform = `rotateY(${theta * index}deg) translateX(${config3D.radius}px) translateZ(${index + curZ}px) rotateX(${config3D.tilt}deg)`;
             });
         }
         updateMorphology();
 
-        setInterval(() => {
-            const randomRange = isMobile ? 80 : 200;
-            const baseRadius = isMobile ? 80 : 120; 
-            config3D.radius = Math.floor(Math.random() * randomRange) + baseRadius;
-            config3D.tilt = Math.floor(Math.random() * 60) - 30;
-            updateMorphology();
-        }, 7000); 
+        let morphTime = 0;
+        let morphologyActive = false;
 
         function animate3D() {
-            if (!isDragging3D) currentRotY += 0.15; 
+            if (!isDragging3D) currentRotY += 0.15;
+
+            if (morphologyActive) {
+                morphTime += 0.004;
+                const baseR = isMobile ? 110 : 170;
+                const range = isMobile ? 30 : 80;
+                config3D.radius = baseR + Math.sin(morphTime * 0.6) * range + Math.cos(morphTime * 0.45) * range * 0.4;
+                config3D.tilt = Math.sin(morphTime * 0.35) * 12 + Math.cos(morphTime * 0.8) * 6;
+                updateMorphology();
+            }
+
             world.style.transform = `scale(${currentScale}) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
             requestAnimationFrame(animate3D);
         }
-        animate3D();
 
         world.addEventListener('pointerdown', (e) => {
             if(e.target.tagName.toLowerCase() === 'img') return;
@@ -1471,7 +1490,12 @@
 
         // --- 5. Preloader ---
         const initIntroAnimations = () => {
-            const tl = gsap.timeline();
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    morphologyActive = true;
+                    animate3D();
+                }
+            });
             gsap.set(".hero-title", { opacity: 0, scale: 0.9 });
             gsap.set(".world", { scale: 0.2, opacity: 0 });
             gsap.set(".ui-panel", { x: -50, opacity: 0 });

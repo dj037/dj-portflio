@@ -27,7 +27,7 @@
 </head>
 <body>
   <!-- 返回主页按钮 -->
-  <a class="back-home" href="../DJ.html#project-tuorui" aria-label="返回主页面">←</a>
+  <a class="back-home" href="/DJ.html#project-tuorui" aria-label="返回主页面">←</a>
 
   <!-- 音量控制按钮 -->
   <button type="button" id="playBtn" aria-label="播放背景音乐">🔈</button>
@@ -49,7 +49,7 @@
   </nav>
 
   <!-- 隐藏的音频播放器 -->
-  <audio id="audioPlayer" src="audio/music.MP3" preload="metadata"></audio>
+  <audio id="audioPlayer" src="audio/music.mp3" preload="metadata"></audio>
 
   <!-- 主要内容区域 -->
   <main class="article">
@@ -95,7 +95,7 @@
 
         <div class="video" style="margin: var(--spacing-lg) 0;">
           <div class="video-container">
-            <video controls loop playsinline preload="metadata">
+            <video controls loop playsinline preload="metadata" poster="image/tu2.png">
               <source src="https://res.cloudinary.com/ds2hgfbhj/video/upload/v1775840151/guoguo_emkbq7.mp4" type="video/mp4">
             </video>
           </div>
@@ -192,7 +192,7 @@
     <section id="section-2" class="section video-sequence">
       <div class="video" data-aos="fade-up" data-aos-delay="500" data-aos-duration="1500">
         <div class="video-container">
-          <video muted autoplay loop playsinline preload="metadata">
+          <video muted autoplay loop playsinline preload="metadata" poster="image/tu6.png">
             <source src="https://res.cloudinary.com/ds2hgfbhj/video/upload/v1775840327/haifuren_zhaoyunqing_uoulsp.mp4" type="video/mp4">
           </video>
         </div>
@@ -247,7 +247,7 @@
 
       <div class="video" style="margin: var(--spacing-lg) 0;">
         <div class="video-container">
-          <video controls loop playsinline preload="metadata">
+          <video controls loop playsinline preload="metadata" poster="image/tu4.png">
             <source src="https://res.cloudinary.com/ds2hgfbhj/video/upload/v1775840298/wushangyang_ssptrp.mp4" type="video/mp4">
           </video>
         </div>
@@ -383,9 +383,6 @@
   </footer>
 
   <!-- 脚本 -->
-  <!-- Chart.js 用于图表 -->
-  <script src="https://cdn.bootcdn.net/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-
   <!-- ECharts 用于复杂图表 -->
   <script src="js/echarts.js"></script>
 

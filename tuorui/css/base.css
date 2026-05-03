@@ -7,11 +7,13 @@
   src: url(https://static01.nyt.com/newsgraphics/2013/10/27/south-china-sea/assets/nyt-cheltenham-200-normal.woff) format("woff");
   font-style: normal;
   font-weight: 200;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'de';
-  src: url("./font/FZYANZQKSJF.TTF");
+  src: url("../font/FZYANZQKSJF.TTF");
+  font-display: swap;
 }
 
 :root {
