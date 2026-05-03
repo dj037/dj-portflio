@@ -347,6 +347,20 @@ audio {
     right: 0.5rem;
   }
 
+  .image-overlay {
+    min-height: 120px;
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .image-overlay h3,
+  .image-overlay h4 {
+    font-size: 1.2rem;
+  }
+
+  .image-overlay p {
+    font-size: 0.8rem;
+  }
+
   .interview {
     padding: var(--spacing-md);
   }
@@ -386,6 +400,20 @@ audio {
   .chart-container {
     padding: var(--spacing-md);
     min-height: 200px;
+  }
+
+  .image-overlay {
+    min-height: 100px;
+    padding: var(--spacing-sm);
+  }
+
+  .image-overlay h3,
+  .image-overlay h4 {
+    font-size: 1rem;
+  }
+
+  .image-overlay p {
+    font-size: 0.75rem;
   }
 
   .carousel-item {
